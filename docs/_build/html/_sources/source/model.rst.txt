@@ -1,0 +1,17 @@
+Modèles Django
+==============
+
+.. automodule:: core.models
+   :members:
+   :undoc-members: False
+   :show-inheritance:
+
+.. autoclass:: core.models.Event
+   :members:
+   :special-members: __init__
+   :exclude-members: DoesNotExist, MultipleObjectsReturned
+
+.. autoclass:: core.models.Participation
+   :members:
+   :special-members: __init__
+   :exclude-members: DoesNotExist, MultipleObjectsReturned

@@ -1,0 +1,1451 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="fr" data-content_root="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>calendar &mdash; Documentation gestionAssiduite getionAssiduite</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=996479af"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/translations.js?v=e6b791cb"></script>
+      <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs"></script>
+      <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.2.0/dist/mermaid-layout-elk.esm.min.mjs"></script>
+      <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs";import elkLayouts from "https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.2.0/dist/mermaid-layout-elk.esm.min.mjs";mermaid.registerLayoutLoaders(elkLayouts);mermaid.initialize({startOnLoad:false});</script>
+      <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+      <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs";
+
+const defaultStyle = document.createElement('style');
+defaultStyle.textContent = `pre.mermaid {
+    /* Same as .mermaid-container > pre */
+    display: block;
+    width: 100%;
+}
+
+pre.mermaid > svg {
+    /* Same as .mermaid-container > pre > svg */
+    height: 500px;
+    width: 100%;
+    max-width: 100% !important;
+}
+`;
+document.head.appendChild(defaultStyle);
+
+const fullscreenStyle = document.createElement('style');
+fullscreenStyle.textContent = `.mermaid-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.mermaid-container > pre {
+    display: block;
+    width: 100%;
+}
+
+.mermaid-container > pre > svg {
+    height: 500px;
+    width: 100%;
+    max-width: 100% !important;
+}
+
+.mermaid-fullscreen-btn {
+    width: 28px;
+    height: 28px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    line-height: 1;
+    padding: 0;
+    color: #333;
+}
+
+.mermaid-fullscreen-btn:hover {
+    opacity: 100% !important;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    transform: scale(1.1);
+}
+
+.mermaid-fullscreen-btn.dark-theme {
+    background: rgba(50, 50, 50, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #e0e0e0;
+}
+
+.mermaid-fullscreen-btn.dark-theme:hover {
+    background: rgba(60, 60, 60, 1);
+    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.2);
+}
+
+.mermaid-fullscreen-modal {
+    display: none;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 95vw;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.98);
+    z-index: 9999;
+    padding: 20px;
+    overflow: auto;
+}
+
+.mermaid-fullscreen-modal.dark-theme {
+    background: rgba(0, 0, 0, 0.98);
+}
+
+.mermaid-fullscreen-modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mermaid-container-fullscreen {
+    position: relative;
+    width: 95vw;
+    height: 90vh;
+    max-width: 95vw;
+    max-height: 90vh;
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mermaid-container-fullscreen.dark-theme {
+    background: #1a1a1a;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+}
+
+.mermaid-container-fullscreen pre.mermaid {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mermaid-container-fullscreen .mermaid svg {
+    height: 100% !important;
+    width: 100% !important;
+    cursor: grab;
+}
+
+.mermaid-fullscreen-close {
+    position: fixed !important;
+    top: 20px !important;
+    right: 20px !important;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s;
+    font-size: 24px;
+    line-height: 1;
+    color: #333;
+}
+
+.mermaid-fullscreen-close:hover {
+    background: white;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+    transform: scale(1.1);
+}
+
+.mermaid-fullscreen-close.dark-theme {
+    background: rgba(50, 50, 50, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #e0e0e0;
+}
+
+.mermaid-fullscreen-close.dark-theme:hover {
+    background: rgba(60, 60, 60, 1);
+    box-shadow: 0 6px 16px rgba(255, 255, 255, 0.2);
+}
+
+.mermaid-fullscreen-modal .mermaid-fullscreen-btn {
+    display: none !important;
+}`;
+document.head.appendChild(fullscreenStyle);
+
+// Detect if page has dark background
+const isDarkTheme = () => {
+    const bgColor = window.getComputedStyle(document.body).backgroundColor;
+    const match = bgColor.match(/rgb\((\d+),\s*(\d+),\s*(\d+)/);
+    if (match) {
+        const r = parseInt(match[1]);
+        const g = parseInt(match[2]);
+        const b = parseInt(match[3]);
+        const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+        return brightness < 128;
+    }
+    return false;
+};
+
+const load = async () => {
+    await mermaid.run();
+
+    const all_mermaids = document.querySelectorAll(".mermaid");
+    const mermaids_processed = document.querySelectorAll(".mermaid[data-processed='true']");
+
+    if ("False" === "True") {
+        const mermaids_to_add_zoom = -1 === -1 ? all_mermaids.length : -1;
+        if(mermaids_to_add_zoom > 0) {
+            var svgs = d3.selectAll("");
+            if(all_mermaids.length !== mermaids_processed.length) {
+                setTimeout(load, 200);
+                return;
+            } else if(svgs.size() !== mermaids_to_add_zoom) {
+                setTimeout(load, 200);
+                return;
+            } else {
+                svgs.each(function() {
+                    var svg = d3.select(this);
+                    svg.html("<g class='wrapper'>" + svg.html() + "</g>");
+                    var inner = svg.select("g");
+                    var zoom = d3.zoom().on("zoom", function(event) {
+                        inner.attr("transform", event.transform);
+                    });
+                    svg.call(zoom);
+                });
+            }
+        }
+    } else if(all_mermaids.length !== mermaids_processed.length) {
+        // Wait for mermaid to process all diagrams
+        setTimeout(load, 200);
+        return;
+    }
+
+    const darkTheme = isDarkTheme();
+
+    // Stop here if not adding fullscreen capability
+    if ("True" !== "True") return;
+
+    const modal = document.createElement('div');
+    modal.className = 'mermaid-fullscreen-modal' + (darkTheme ? ' dark-theme' : '');
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-label', 'Fullscreen diagram viewer');
+    modal.innerHTML = `
+        <button class="mermaid-fullscreen-close${darkTheme ? ' dark-theme' : ''}" aria-label="Close fullscreen">✕</button>
+        <div class="mermaid-container-fullscreen${darkTheme ? ' dark-theme' : ''}"></div>
+    `;
+    document.body.appendChild(modal);
+
+    const modalContent = modal.querySelector('.mermaid-container-fullscreen');
+    const closeBtn = modal.querySelector('.mermaid-fullscreen-close');
+
+    let previousScrollOffset = [window.scrollX, window.scrollY];
+
+    const closeModal = () => {
+        modal.classList.remove('active');
+        modalContent.innerHTML = '';
+        document.body.style.overflow = ''
+        window.scrollTo({left: previousScrollOffset[0], top: previousScrollOffset[1], behavior: 'instant'});
+    };
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+
+    const allButtons = [];
+
+    document.querySelectorAll('.mermaid').forEach((mermaidDiv) => {
+        if (mermaidDiv.parentNode.classList.contains('mermaid-container') ||
+            mermaidDiv.closest('.mermaid-fullscreen-modal')) {
+            return;
+        }
+
+        const container = document.createElement('div');
+        container.className = 'mermaid-container';
+        mermaidDiv.parentNode.insertBefore(container, mermaidDiv);
+        container.appendChild(mermaidDiv);
+
+        const fullscreenBtn = document.createElement('button');
+        fullscreenBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+        fullscreenBtn.setAttribute('aria-label', 'View diagram in fullscreen');
+        fullscreenBtn.textContent = '⛶';
+        fullscreenBtn.style.opacity = '50%';
+
+        // Calculate dynamic position based on diagram's margin and padding
+        const diagramStyle = window.getComputedStyle(mermaidDiv);
+        const marginTop = parseFloat(diagramStyle.marginTop) || 0;
+        const marginRight = parseFloat(diagramStyle.marginRight) || 0;
+        const paddingTop = parseFloat(diagramStyle.paddingTop) || 0;
+        const paddingRight = parseFloat(diagramStyle.paddingRight) || 0;
+        fullscreenBtn.style.top = `${marginTop + paddingTop + 4}px`;
+        fullscreenBtn.style.right = `${marginRight + paddingRight + 4}px`;
+
+        fullscreenBtn.addEventListener('click', () => {
+            previousScrollOffset = [window.scroll, window.scrollY];
+            const clone = mermaidDiv.cloneNode(true);
+            modalContent.innerHTML = '';
+            modalContent.appendChild(clone);
+
+            const svg = clone.querySelector('svg');
+            if (svg) {
+                svg.removeAttribute('width');
+                svg.removeAttribute('height');
+                svg.style.width = '100%';
+                svg.style.height = 'auto';
+                svg.style.maxWidth = '100%';
+                svg.style.sdisplay = 'block';
+
+                if ("False" === "True") {
+                    setTimeout(() => {
+                        const g = svg.querySelector('g');
+                        if (g) {
+                            var svgD3 = d3.select(svg);
+                            svgD3.html("<g class='wrapper'>" + svgD3.html() + "</g>");
+                            var inner = svgD3.select("g");
+                            var zoom = d3.zoom().on("zoom", function(event) {
+                                inner.attr("transform", event.transform);
+                            });
+                            svgD3.call(zoom);
+                        }
+                    }, 100);
+                }
+            }
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        container.appendChild(fullscreenBtn);
+        allButtons.push(fullscreenBtn);
+    });
+
+    // Update theme classes when theme changes
+    const updateTheme = () => {
+        const dark = isDarkTheme();
+        allButtons.forEach(btn => {
+            if (dark) {
+                btn.classList.add('dark-theme');
+            } else {
+                btn.classList.remove('dark-theme');
+            }
+        });
+        if (dark) {
+            modal.classList.add('dark-theme');
+            modalContent.classList.add('dark-theme');
+            closeBtn.classList.add('dark-theme');
+        } else {
+            modal.classList.remove('dark-theme');
+            modalContent.classList.remove('dark-theme');
+            closeBtn.classList.remove('dark-theme');
+        }
+    };
+
+    // Watch for theme changes
+    const observer = new MutationObserver(updateTheme);
+    observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+    observer.observe(document.body, {
+        attributes: true,
+        attributeFilter: ['class', 'style']
+    });
+};
+
+window.addEventListener("load", load);
+</script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Recherche" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../source/index.html" class="icon icon-home">
+            gestionAssiduite
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Rechercher docs" aria-label="Rechercher docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../source/installation.html">Installation de l’application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/views.html">Vues Django</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/models.html">Modèles Django</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../source/index.html">gestionAssiduite</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../source/index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Code du module</a></li>
+      <li class="breadcrumb-item active">calendar</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Code source de calendar</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Calendar printing functions</span>
+
+<span class="sd">Note when comparing these calendars to the ones printed by cal(1): By</span>
+<span class="sd">default, these calendars have Monday as the first day of the week, and</span>
+<span class="sd">Sunday as the last (the European convention). Use setfirstweekday() to</span>
+<span class="sd">set the first day of the week (0=Monday, 6=Sunday).&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">IntEnum</span><span class="p">,</span> <span class="n">global_enum</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">locale</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">_locale</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">itertools</span><span class="w"> </span><span class="kn">import</span> <span class="n">repeat</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;IllegalMonthError&quot;</span><span class="p">,</span> <span class="s2">&quot;IllegalWeekdayError&quot;</span><span class="p">,</span> <span class="s2">&quot;setfirstweekday&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;firstweekday&quot;</span><span class="p">,</span> <span class="s2">&quot;isleap&quot;</span><span class="p">,</span> <span class="s2">&quot;leapdays&quot;</span><span class="p">,</span> <span class="s2">&quot;weekday&quot;</span><span class="p">,</span> <span class="s2">&quot;monthrange&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;monthcalendar&quot;</span><span class="p">,</span> <span class="s2">&quot;prmonth&quot;</span><span class="p">,</span> <span class="s2">&quot;month&quot;</span><span class="p">,</span> <span class="s2">&quot;prcal&quot;</span><span class="p">,</span> <span class="s2">&quot;calendar&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;timegm&quot;</span><span class="p">,</span> <span class="s2">&quot;month_name&quot;</span><span class="p">,</span> <span class="s2">&quot;month_abbr&quot;</span><span class="p">,</span> <span class="s2">&quot;day_name&quot;</span><span class="p">,</span> <span class="s2">&quot;day_abbr&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;Calendar&quot;</span><span class="p">,</span> <span class="s2">&quot;TextCalendar&quot;</span><span class="p">,</span> <span class="s2">&quot;HTMLCalendar&quot;</span><span class="p">,</span> <span class="s2">&quot;LocaleTextCalendar&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;LocaleHTMLCalendar&quot;</span><span class="p">,</span> <span class="s2">&quot;weekheader&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;Day&quot;</span><span class="p">,</span> <span class="s2">&quot;Month&quot;</span><span class="p">,</span> <span class="s2">&quot;JANUARY&quot;</span><span class="p">,</span> <span class="s2">&quot;FEBRUARY&quot;</span><span class="p">,</span> <span class="s2">&quot;MARCH&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;APRIL&quot;</span><span class="p">,</span> <span class="s2">&quot;MAY&quot;</span><span class="p">,</span> <span class="s2">&quot;JUNE&quot;</span><span class="p">,</span> <span class="s2">&quot;JULY&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;AUGUST&quot;</span><span class="p">,</span> <span class="s2">&quot;SEPTEMBER&quot;</span><span class="p">,</span> <span class="s2">&quot;OCTOBER&quot;</span><span class="p">,</span> <span class="s2">&quot;NOVEMBER&quot;</span><span class="p">,</span> <span class="s2">&quot;DECEMBER&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;MONDAY&quot;</span><span class="p">,</span> <span class="s2">&quot;TUESDAY&quot;</span><span class="p">,</span> <span class="s2">&quot;WEDNESDAY&quot;</span><span class="p">,</span> <span class="s2">&quot;THURSDAY&quot;</span><span class="p">,</span> <span class="s2">&quot;FRIDAY&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;SATURDAY&quot;</span><span class="p">,</span> <span class="s2">&quot;SUNDAY&quot;</span><span class="p">]</span>
+
+<span class="c1"># Exception raised for bad input (with string parameter for details)</span>
+<span class="n">error</span> <span class="o">=</span> <span class="ne">ValueError</span>
+
+<span class="c1"># Exceptions raised for bad input</span>
+<span class="c1"># This is trick for backward compatibility. Since 3.13, we will raise IllegalMonthError instead of</span>
+<span class="c1"># IndexError for bad month number(out of 1-12). But we can&#39;t remove IndexError for backward compatibility.</span>
+<div class="viewcode-block" id="IllegalMonthError">
+<a class="viewcode-back" href="../source/models.html#calendar.IllegalMonthError">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">IllegalMonthError</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">IndexError</span><span class="p">):</span>
+<div class="viewcode-block" id="IllegalMonthError.__init__">
+<a class="viewcode-back" href="../source/models.html#calendar.IllegalMonthError.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">month</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">month</span> <span class="o">=</span> <span class="n">month</span></div>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;bad month number </span><span class="si">%r</span><span class="s2">; must be 1-12&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">month</span></div>
+
+
+
+<div class="viewcode-block" id="IllegalWeekdayError">
+<a class="viewcode-back" href="../source/models.html#calendar.IllegalWeekdayError">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">IllegalWeekdayError</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+<div class="viewcode-block" id="IllegalWeekdayError.__init__">
+<a class="viewcode-back" href="../source/models.html#calendar.IllegalWeekdayError.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">weekday</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weekday</span> <span class="o">=</span> <span class="n">weekday</span></div>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;bad weekday number </span><span class="si">%r</span><span class="s2">; must be 0 (Monday) to 6 (Sunday)&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">weekday</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="fm">__getattr__</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;January&#39;</span><span class="p">,</span> <span class="s1">&#39;February&#39;</span><span class="p">):</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; attribute is deprecated, use &#39;</span><span class="si">{</span><span class="n">name</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2">&#39; instead&quot;</span><span class="p">,</span>
+                      <span class="ne">DeprecationWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;January&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">2</span>
+
+    <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;module &#39;</span><span class="si">{</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&#39; has no attribute &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+
+
+<span class="c1"># Constants for months</span>
+<div class="viewcode-block" id="Month">
+<a class="viewcode-back" href="../source/models.html#calendar.Month">[docs]</a>
+<span class="nd">@global_enum</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Month</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
+    <span class="n">JANUARY</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">FEBRUARY</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">MARCH</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="n">APRIL</span> <span class="o">=</span> <span class="mi">4</span>
+    <span class="n">MAY</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">JUNE</span> <span class="o">=</span> <span class="mi">6</span>
+    <span class="n">JULY</span> <span class="o">=</span> <span class="mi">7</span>
+    <span class="n">AUGUST</span> <span class="o">=</span> <span class="mi">8</span>
+    <span class="n">SEPTEMBER</span> <span class="o">=</span> <span class="mi">9</span>
+    <span class="n">OCTOBER</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="n">NOVEMBER</span> <span class="o">=</span> <span class="mi">11</span>
+    <span class="n">DECEMBER</span> <span class="o">=</span> <span class="mi">12</span></div>
+
+
+
+<span class="c1"># Constants for days</span>
+<div class="viewcode-block" id="Day">
+<a class="viewcode-back" href="../source/models.html#calendar.Day">[docs]</a>
+<span class="nd">@global_enum</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Day</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
+    <span class="n">MONDAY</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">TUESDAY</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">WEDNESDAY</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">THURSDAY</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="n">FRIDAY</span> <span class="o">=</span> <span class="mi">4</span>
+    <span class="n">SATURDAY</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">SUNDAY</span> <span class="o">=</span> <span class="mi">6</span></div>
+
+
+
+<span class="c1"># Number of days per month (except for February in leap years)</span>
+<span class="n">mdays</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">31</span><span class="p">]</span>
+
+<span class="c1"># This module used to have hard-coded lists of day and month names, as</span>
+<span class="c1"># English strings.  The classes following emulate a read-only version of</span>
+<span class="c1"># that, but supply localized names.  Note that the values are computed</span>
+<span class="c1"># fresh on each call, in case the user changes locale between calls.</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">_localized_month</span><span class="p">:</span>
+
+    <span class="n">_months</span> <span class="o">=</span> <span class="p">[</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2001</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">12</span><span class="p">)]</span>
+    <span class="n">_months</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">format</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">format</span> <span class="o">=</span> <span class="nb">format</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+        <span class="n">funcs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_months</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">f</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">format</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">funcs</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">funcs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">format</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">13</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">_localized_day</span><span class="p">:</span>
+
+    <span class="c1"># January 1, 2001, was a Monday.</span>
+    <span class="n">_days</span> <span class="o">=</span> <span class="p">[</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">2001</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">7</span><span class="p">)]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">format</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">format</span> <span class="o">=</span> <span class="nb">format</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+        <span class="n">funcs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_days</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">f</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">format</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">funcs</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">funcs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">format</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">7</span>
+
+
+<span class="c1"># Full and abbreviated names of weekdays</span>
+<span class="n">day_name</span> <span class="o">=</span> <span class="n">_localized_day</span><span class="p">(</span><span class="s1">&#39;%A&#39;</span><span class="p">)</span>
+<span class="n">day_abbr</span> <span class="o">=</span> <span class="n">_localized_day</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%a</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># Full and abbreviated names of months (1-based arrays!!!)</span>
+<span class="n">month_name</span> <span class="o">=</span> <span class="n">_localized_month</span><span class="p">(</span><span class="s1">&#39;%B&#39;</span><span class="p">)</span>
+<span class="n">month_abbr</span> <span class="o">=</span> <span class="n">_localized_month</span><span class="p">(</span><span class="s1">&#39;%b&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="isleap">
+<a class="viewcode-back" href="../source/models.html#calendar.isleap">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">isleap</span><span class="p">(</span><span class="n">year</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return True for leap years, False for non-leap years.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">year</span> <span class="o">%</span> <span class="mi">4</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="p">(</span><span class="n">year</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">year</span> <span class="o">%</span> <span class="mi">400</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="leapdays">
+<a class="viewcode-back" href="../source/models.html#calendar.leapdays">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">leapdays</span><span class="p">(</span><span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return number of leap years in range [y1, y2).</span>
+<span class="sd">       Assume y1 &lt;= y2.&quot;&quot;&quot;</span>
+    <span class="n">y1</span> <span class="o">-=</span> <span class="mi">1</span>
+    <span class="n">y2</span> <span class="o">-=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">y2</span><span class="o">//</span><span class="mi">4</span> <span class="o">-</span> <span class="n">y1</span><span class="o">//</span><span class="mi">4</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">y2</span><span class="o">//</span><span class="mi">100</span> <span class="o">-</span> <span class="n">y1</span><span class="o">//</span><span class="mi">100</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">y2</span><span class="o">//</span><span class="mi">400</span> <span class="o">-</span> <span class="n">y1</span><span class="o">//</span><span class="mi">400</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="weekday">
+<a class="viewcode-back" href="../source/models.html#calendar.weekday">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">weekday</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return weekday (0-6 ~ Mon-Sun) for year, month (1-12), day (1-31).&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">datetime</span><span class="o">.</span><span class="n">MINYEAR</span> <span class="o">&lt;=</span> <span class="n">year</span> <span class="o">&lt;=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">MAXYEAR</span><span class="p">:</span>
+        <span class="n">year</span> <span class="o">=</span> <span class="mi">2000</span> <span class="o">+</span> <span class="n">year</span> <span class="o">%</span> <span class="mi">400</span>
+    <span class="k">return</span> <span class="n">Day</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="p">)</span><span class="o">.</span><span class="n">weekday</span><span class="p">())</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_validate_month</span><span class="p">(</span><span class="n">month</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">month</span> <span class="o">&lt;=</span> <span class="mi">12</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">IllegalMonthError</span><span class="p">(</span><span class="n">month</span><span class="p">)</span>
+
+<div class="viewcode-block" id="monthrange">
+<a class="viewcode-back" href="../source/models.html#calendar.monthrange">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">monthrange</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return weekday of first day of month (0-6 ~ Mon-Sun)</span>
+<span class="sd">       and number of days (28-31) for year, month.&quot;&quot;&quot;</span>
+    <span class="n">_validate_month</span><span class="p">(</span><span class="n">month</span><span class="p">)</span>
+    <span class="n">day1</span> <span class="o">=</span> <span class="n">weekday</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">ndays</span> <span class="o">=</span> <span class="n">mdays</span><span class="p">[</span><span class="n">month</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">month</span> <span class="o">==</span> <span class="n">FEBRUARY</span> <span class="ow">and</span> <span class="n">isleap</span><span class="p">(</span><span class="n">year</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">day1</span><span class="p">,</span> <span class="n">ndays</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_monthlen</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">mdays</span><span class="p">[</span><span class="n">month</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">month</span> <span class="o">==</span> <span class="n">FEBRUARY</span> <span class="ow">and</span> <span class="n">isleap</span><span class="p">(</span><span class="n">year</span><span class="p">))</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_prevmonth</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">month</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">year</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">12</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="o">-</span><span class="mi">1</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_nextmonth</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">month</span> <span class="o">==</span> <span class="mi">12</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">year</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="o">+</span><span class="mi">1</span>
+
+
+<div class="viewcode-block" id="Calendar">
+<a class="viewcode-back" href="../source/models.html#calendar.Calendar">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Calendar</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Base calendar class. This class doesn&#39;t do any formatting. It simply</span>
+<span class="sd">    provides data to subclasses.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Calendar.__init__">
+<a class="viewcode-back" href="../source/models.html#calendar.Calendar.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">firstweekday</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">firstweekday</span> <span class="o">=</span> <span class="n">firstweekday</span> <span class="c1"># 0 = Monday, 6 = Sunday</span></div>
+
+
+<div class="viewcode-block" id="Calendar.getfirstweekday">
+<a class="viewcode-back" href="../source/models.html#calendar.Calendar.getfirstweekday">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">getfirstweekday</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_firstweekday</span> <span class="o">%</span> <span class="mi">7</span></div>
+
+
+<div class="viewcode-block" id="Calendar.setfirstweekday">
+<a class="viewcode-back" href="../source/models.html#calendar.Calendar.setfirstweekday">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">setfirstweekday</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">firstweekday</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_firstweekday</span> <span class="o">=</span> <span class="n">firstweekday</span></div>
+
+
+    <span class="n">firstweekday</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">getfirstweekday</span><span class="p">,</span> <span class="n">setfirstweekday</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Calendar.iterweekdays">
+<a class="viewcode-back" href="../source/models.html#calendar.Calendar.iterweekdays">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">iterweekdays</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return an iterator for one week of weekday numbers starting with the</span>
+<span class="sd">        configured first one.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">firstweekday</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">firstweekday</span> <span class="o">+</span> <span class="mi">7</span><span class="p">):</span>
+            <span class="k">yield</span> <span class="n">i</span><span class="o">%</span><span class="mi">7</span></div>
+
+
+<div class="viewcode-block" id="Calendar.itermonthdates">
+<a class="viewcode-back" href="../source/models.html#calendar.Calendar.itermonthdates">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">itermonthdates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return an iterator for one month. The iterator will yield datetime.date</span>
+<span class="sd">        values and will always iterate through complete weeks, so it will yield</span>
+<span class="sd">        dates outside the specified month.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">y</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">itermonthdays3</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">):</span>
+            <span class="k">yield</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Calendar.itermonthdays">
+<a class="viewcode-back" href="../source/models.html#calendar.Calendar.itermonthdays">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">itermonthdays</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Like itermonthdates(), but will yield day numbers. For days outside</span>
+<span class="sd">        the specified month the day number is 0.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">day1</span><span class="p">,</span> <span class="n">ndays</span> <span class="o">=</span> <span class="n">monthrange</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">)</span>
+        <span class="n">days_before</span> <span class="o">=</span> <span class="p">(</span><span class="n">day1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">firstweekday</span><span class="p">)</span> <span class="o">%</span> <span class="mi">7</span>
+        <span class="k">yield from</span> <span class="n">repeat</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">days_before</span><span class="p">)</span>
+        <span class="k">yield from</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ndays</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">days_after</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">firstweekday</span> <span class="o">-</span> <span class="n">day1</span> <span class="o">-</span> <span class="n">ndays</span><span class="p">)</span> <span class="o">%</span> <span class="mi">7</span>
+        <span class="k">yield from</span> <span class="n">repeat</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">days_after</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Calendar.itermonthdays2">
+<a class="viewcode-back" href="../source/models.html#calendar.Calendar.itermonthdays2">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">itermonthdays2</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Like itermonthdates(), but will yield (day number, weekday number)</span>
+<span class="sd">        tuples. For days outside the specified month the day number is 0.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">itermonthdays</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">firstweekday</span><span class="p">):</span>
+            <span class="k">yield</span> <span class="n">d</span><span class="p">,</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">7</span></div>
+
+
+<div class="viewcode-block" id="Calendar.itermonthdays3">
+<a class="viewcode-back" href="../source/models.html#calendar.Calendar.itermonthdays3">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">itermonthdays3</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Like itermonthdates(), but will yield (year, month, day) tuples.  Can be</span>
+<span class="sd">        used for dates outside of datetime.date range.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">day1</span><span class="p">,</span> <span class="n">ndays</span> <span class="o">=</span> <span class="n">monthrange</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">)</span>
+        <span class="n">days_before</span> <span class="o">=</span> <span class="p">(</span><span class="n">day1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">firstweekday</span><span class="p">)</span> <span class="o">%</span> <span class="mi">7</span>
+        <span class="n">days_after</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">firstweekday</span> <span class="o">-</span> <span class="n">day1</span> <span class="o">-</span> <span class="n">ndays</span><span class="p">)</span> <span class="o">%</span> <span class="mi">7</span>
+        <span class="n">y</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="n">_prevmonth</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">)</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">_monthlen</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">end</span><span class="o">-</span><span class="n">days_before</span><span class="p">,</span> <span class="n">end</span><span class="p">):</span>
+            <span class="k">yield</span> <span class="n">y</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">d</span>
+        <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ndays</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">yield</span> <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">d</span>
+        <span class="n">y</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="n">_nextmonth</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">days_after</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">yield</span> <span class="n">y</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">d</span></div>
+
+
+<div class="viewcode-block" id="Calendar.itermonthdays4">
+<a class="viewcode-back" href="../source/models.html#calendar.Calendar.itermonthdays4">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">itermonthdays4</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Like itermonthdates(), but will yield (year, month, day, day_of_week) tuples.</span>
+<span class="sd">        Can be used for dates outside of datetime.date range.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">itermonthdays3</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">)):</span>
+            <span class="k">yield</span> <span class="n">y</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">firstweekday</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span> <span class="o">%</span> <span class="mi">7</span></div>
+
+
+<div class="viewcode-block" id="Calendar.monthdatescalendar">
+<a class="viewcode-back" href="../source/models.html#calendar.Calendar.monthdatescalendar">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">monthdatescalendar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a matrix (list of lists) representing a month&#39;s calendar.</span>
+<span class="sd">        Each row represents a week; week entries are datetime.date values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dates</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">itermonthdates</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">))</span>
+        <span class="k">return</span> <span class="p">[</span> <span class="n">dates</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="mi">7</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">dates</span><span class="p">),</span> <span class="mi">7</span><span class="p">)</span> <span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="Calendar.monthdays2calendar">
+<a class="viewcode-back" href="../source/models.html#calendar.Calendar.monthdays2calendar">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">monthdays2calendar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a matrix representing a month&#39;s calendar.</span>
+<span class="sd">        Each row represents a week; week entries are</span>
+<span class="sd">        (day number, weekday number) tuples. Day numbers outside this month</span>
+<span class="sd">        are zero.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">days</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">itermonthdays2</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">))</span>
+        <span class="k">return</span> <span class="p">[</span> <span class="n">days</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="mi">7</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">days</span><span class="p">),</span> <span class="mi">7</span><span class="p">)</span> <span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="Calendar.monthdayscalendar">
+<a class="viewcode-back" href="../source/models.html#calendar.Calendar.monthdayscalendar">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">monthdayscalendar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a matrix representing a month&#39;s calendar.</span>
+<span class="sd">        Each row represents a week; days outside this month are zero.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">days</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">itermonthdays</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">))</span>
+        <span class="k">return</span> <span class="p">[</span> <span class="n">days</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="mi">7</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">days</span><span class="p">),</span> <span class="mi">7</span><span class="p">)</span> <span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="Calendar.yeardatescalendar">
+<a class="viewcode-back" href="../source/models.html#calendar.Calendar.yeardatescalendar">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">yeardatescalendar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the data for the specified year ready for formatting. The return</span>
+<span class="sd">        value is a list of month rows. Each month row contains up to width months.</span>
+<span class="sd">        Each month contains between 4 and 6 weeks and each week contains 1-7</span>
+<span class="sd">        days. Days are datetime.date objects.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">months</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">monthdatescalendar</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">Month</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">months</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="n">width</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">months</span><span class="p">),</span> <span class="n">width</span><span class="p">)</span> <span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="Calendar.yeardays2calendar">
+<a class="viewcode-back" href="../source/models.html#calendar.Calendar.yeardays2calendar">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">yeardays2calendar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the data for the specified year ready for formatting (similar to</span>
+<span class="sd">        yeardatescalendar()). Entries in the week lists are</span>
+<span class="sd">        (day number, weekday number) tuples. Day numbers outside this month are</span>
+<span class="sd">        zero.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">months</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">monthdays2calendar</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">Month</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">months</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="n">width</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">months</span><span class="p">),</span> <span class="n">width</span><span class="p">)</span> <span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="Calendar.yeardayscalendar">
+<a class="viewcode-back" href="../source/models.html#calendar.Calendar.yeardayscalendar">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">yeardayscalendar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the data for the specified year ready for formatting (similar to</span>
+<span class="sd">        yeardatescalendar()). Entries in the week lists are day numbers.</span>
+<span class="sd">        Day numbers outside this month are zero.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">months</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">monthdayscalendar</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">Month</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">months</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="n">width</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">months</span><span class="p">),</span> <span class="n">width</span><span class="p">)</span> <span class="p">]</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="TextCalendar">
+<a class="viewcode-back" href="../source/models.html#calendar.TextCalendar">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TextCalendar</span><span class="p">(</span><span class="n">Calendar</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Subclass of Calendar that outputs a calendar as a simple plain text</span>
+<span class="sd">    similar to the UNIX program cal.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="TextCalendar.prweek">
+<a class="viewcode-back" href="../source/models.html#calendar.TextCalendar.prweek">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">prweek</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theweek</span><span class="p">,</span> <span class="n">width</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Print a single week (no newline).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">formatweek</span><span class="p">(</span><span class="n">theweek</span><span class="p">,</span> <span class="n">width</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TextCalendar.formatday">
+<a class="viewcode-back" href="../source/models.html#calendar.TextCalendar.formatday">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">formatday</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">day</span><span class="p">,</span> <span class="n">weekday</span><span class="p">,</span> <span class="n">width</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a formatted day.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">day</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%2i</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">day</span>             <span class="c1"># right-align single-digit days</span>
+        <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">width</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TextCalendar.formatweek">
+<a class="viewcode-back" href="../source/models.html#calendar.TextCalendar.formatweek">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">formatweek</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theweek</span><span class="p">,</span> <span class="n">width</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a single week in a string (no newline).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">formatday</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">wd</span><span class="p">,</span> <span class="n">width</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">wd</span><span class="p">)</span> <span class="ow">in</span> <span class="n">theweek</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TextCalendar.formatweekday">
+<a class="viewcode-back" href="../source/models.html#calendar.TextCalendar.formatweekday">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">formatweekday</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">day</span><span class="p">,</span> <span class="n">width</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a formatted week day name.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">width</span> <span class="o">&gt;=</span> <span class="mi">9</span><span class="p">:</span>
+            <span class="n">names</span> <span class="o">=</span> <span class="n">day_name</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">names</span> <span class="o">=</span> <span class="n">day_abbr</span>
+        <span class="k">return</span> <span class="n">names</span><span class="p">[</span><span class="n">day</span><span class="p">][:</span><span class="n">width</span><span class="p">]</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">width</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TextCalendar.formatweekheader">
+<a class="viewcode-back" href="../source/models.html#calendar.TextCalendar.formatweekheader">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">formatweekheader</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a header for a week.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">formatweekday</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">width</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterweekdays</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="TextCalendar.formatmonthname">
+<a class="viewcode-back" href="../source/models.html#calendar.TextCalendar.formatmonthname">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">formatmonthname</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theyear</span><span class="p">,</span> <span class="n">themonth</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">withyear</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a formatted month name.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_validate_month</span><span class="p">(</span><span class="n">themonth</span><span class="p">)</span>
+
+        <span class="n">s</span> <span class="o">=</span> <span class="n">month_name</span><span class="p">[</span><span class="n">themonth</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">withyear</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%r</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">theyear</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">width</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TextCalendar.prmonth">
+<a class="viewcode-back" href="../source/models.html#calendar.TextCalendar.prmonth">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">prmonth</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theyear</span><span class="p">,</span> <span class="n">themonth</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Print a month&#39;s calendar.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">formatmonth</span><span class="p">(</span><span class="n">theyear</span><span class="p">,</span> <span class="n">themonth</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">l</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TextCalendar.formatmonth">
+<a class="viewcode-back" href="../source/models.html#calendar.TextCalendar.formatmonth">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">formatmonth</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theyear</span><span class="p">,</span> <span class="n">themonth</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a month&#39;s calendar string (multi-line).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+        <span class="n">l</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">l</span><span class="p">)</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatmonthname</span><span class="p">(</span><span class="n">theyear</span><span class="p">,</span> <span class="n">themonth</span><span class="p">,</span> <span class="mi">7</span> <span class="o">*</span> <span class="p">(</span><span class="n">w</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">*</span> <span class="n">l</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatweekheader</span><span class="p">(</span><span class="n">w</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">*</span> <span class="n">l</span>
+        <span class="k">for</span> <span class="n">week</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">monthdays2calendar</span><span class="p">(</span><span class="n">theyear</span><span class="p">,</span> <span class="n">themonth</span><span class="p">):</span>
+            <span class="n">s</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatweek</span><span class="p">(</span><span class="n">week</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+            <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">*</span> <span class="n">l</span>
+        <span class="k">return</span> <span class="n">s</span></div>
+
+
+<div class="viewcode-block" id="TextCalendar.formatyear">
+<a class="viewcode-back" href="../source/models.html#calendar.TextCalendar.formatyear">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">formatyear</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theyear</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a year&#39;s calendar as a multi-line string.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+        <span class="n">l</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">l</span><span class="p">)</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+        <span class="n">colwidth</span> <span class="o">=</span> <span class="p">(</span><span class="n">w</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">7</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">append</span>
+        <span class="n">a</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">theyear</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">colwidth</span><span class="o">*</span><span class="n">m</span><span class="o">+</span><span class="n">c</span><span class="o">*</span><span class="p">(</span><span class="n">m</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">rstrip</span><span class="p">())</span>
+        <span class="n">a</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">*</span><span class="n">l</span><span class="p">)</span>
+        <span class="n">header</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatweekheader</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">row</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">yeardays2calendar</span><span class="p">(</span><span class="n">theyear</span><span class="p">,</span> <span class="n">m</span><span class="p">)):</span>
+            <span class="c1"># months in this row</span>
+            <span class="n">months</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="o">*</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">m</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">13</span><span class="p">))</span>
+            <span class="n">a</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">*</span><span class="n">l</span><span class="p">)</span>
+            <span class="n">names</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">formatmonthname</span><span class="p">(</span><span class="n">theyear</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">colwidth</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+                     <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">months</span><span class="p">)</span>
+            <span class="n">a</span><span class="p">(</span><span class="n">formatstring</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">colwidth</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">())</span>
+            <span class="n">a</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">*</span><span class="n">l</span><span class="p">)</span>
+            <span class="n">headers</span> <span class="o">=</span> <span class="p">(</span><span class="n">header</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">months</span><span class="p">)</span>
+            <span class="n">a</span><span class="p">(</span><span class="n">formatstring</span><span class="p">(</span><span class="n">headers</span><span class="p">,</span> <span class="n">colwidth</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">())</span>
+            <span class="n">a</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">*</span><span class="n">l</span><span class="p">)</span>
+            <span class="c1"># max number of weeks for this row</span>
+            <span class="n">height</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cal</span><span class="p">)</span> <span class="k">for</span> <span class="n">cal</span> <span class="ow">in</span> <span class="n">row</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">height</span><span class="p">):</span>
+                <span class="n">weeks</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">cal</span> <span class="ow">in</span> <span class="n">row</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">j</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cal</span><span class="p">):</span>
+                        <span class="n">weeks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">weeks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">formatweek</span><span class="p">(</span><span class="n">cal</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">w</span><span class="p">))</span>
+                <span class="n">a</span><span class="p">(</span><span class="n">formatstring</span><span class="p">(</span><span class="n">weeks</span><span class="p">,</span> <span class="n">colwidth</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">())</span>
+                <span class="n">a</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">*</span> <span class="n">l</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">v</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TextCalendar.pryear">
+<a class="viewcode-back" href="../source/models.html#calendar.TextCalendar.pryear">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">pryear</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theyear</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Print a year&#39;s calendar.&quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">formatyear</span><span class="p">(</span><span class="n">theyear</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">m</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="HTMLCalendar">
+<a class="viewcode-back" href="../source/models.html#calendar.HTMLCalendar">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">HTMLCalendar</span><span class="p">(</span><span class="n">Calendar</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This calendar returns complete HTML pages.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># CSS classes for the day &lt;td&gt;s</span>
+    <span class="n">cssclasses</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;mon&quot;</span><span class="p">,</span> <span class="s2">&quot;tue&quot;</span><span class="p">,</span> <span class="s2">&quot;wed&quot;</span><span class="p">,</span> <span class="s2">&quot;thu&quot;</span><span class="p">,</span> <span class="s2">&quot;fri&quot;</span><span class="p">,</span> <span class="s2">&quot;sat&quot;</span><span class="p">,</span> <span class="s2">&quot;sun&quot;</span><span class="p">]</span>
+
+    <span class="c1"># CSS classes for the day &lt;th&gt;s</span>
+    <span class="n">cssclasses_weekday_head</span> <span class="o">=</span> <span class="n">cssclasses</span>
+
+    <span class="c1"># CSS class for the days before and after current month</span>
+    <span class="n">cssclass_noday</span> <span class="o">=</span> <span class="s2">&quot;noday&quot;</span>
+
+    <span class="c1"># CSS class for the month&#39;s head</span>
+    <span class="n">cssclass_month_head</span> <span class="o">=</span> <span class="s2">&quot;month&quot;</span>
+
+    <span class="c1"># CSS class for the month</span>
+    <span class="n">cssclass_month</span> <span class="o">=</span> <span class="s2">&quot;month&quot;</span>
+
+    <span class="c1"># CSS class for the year&#39;s table head</span>
+    <span class="n">cssclass_year_head</span> <span class="o">=</span> <span class="s2">&quot;year&quot;</span>
+
+    <span class="c1"># CSS class for the whole year table</span>
+    <span class="n">cssclass_year</span> <span class="o">=</span> <span class="s2">&quot;year&quot;</span>
+
+<div class="viewcode-block" id="HTMLCalendar.formatday">
+<a class="viewcode-back" href="../source/models.html#calendar.HTMLCalendar.formatday">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">formatday</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">day</span><span class="p">,</span> <span class="n">weekday</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a day as a table cell.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">day</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># day outside month</span>
+            <span class="k">return</span> <span class="s1">&#39;&lt;td class=&quot;</span><span class="si">%s</span><span class="s1">&quot;&gt;&amp;nbsp;&lt;/td&gt;&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">cssclass_noday</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;&lt;td class=&quot;</span><span class="si">%s</span><span class="s1">&quot;&gt;</span><span class="si">%d</span><span class="s1">&lt;/td&gt;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cssclasses</span><span class="p">[</span><span class="n">weekday</span><span class="p">],</span> <span class="n">day</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="HTMLCalendar.formatweek">
+<a class="viewcode-back" href="../source/models.html#calendar.HTMLCalendar.formatweek">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">formatweek</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theweek</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a complete week as a table row.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">formatday</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">wd</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">wd</span><span class="p">)</span> <span class="ow">in</span> <span class="n">theweek</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s1">&#39;&lt;tr&gt;</span><span class="si">%s</span><span class="s1">&lt;/tr&gt;&#39;</span> <span class="o">%</span> <span class="n">s</span></div>
+
+
+<div class="viewcode-block" id="HTMLCalendar.formatweekday">
+<a class="viewcode-back" href="../source/models.html#calendar.HTMLCalendar.formatweekday">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">formatweekday</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">day</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a weekday name as a table header.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s1">&#39;&lt;th class=&quot;</span><span class="si">%s</span><span class="s1">&quot;&gt;</span><span class="si">%s</span><span class="s1">&lt;/th&gt;&#39;</span> <span class="o">%</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cssclasses_weekday_head</span><span class="p">[</span><span class="n">day</span><span class="p">],</span> <span class="n">day_abbr</span><span class="p">[</span><span class="n">day</span><span class="p">])</span></div>
+
+
+<div class="viewcode-block" id="HTMLCalendar.formatweekheader">
+<a class="viewcode-back" href="../source/models.html#calendar.HTMLCalendar.formatweekheader">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">formatweekheader</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a header for a week as a table row.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">formatweekday</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterweekdays</span><span class="p">())</span>
+        <span class="k">return</span> <span class="s1">&#39;&lt;tr&gt;</span><span class="si">%s</span><span class="s1">&lt;/tr&gt;&#39;</span> <span class="o">%</span> <span class="n">s</span></div>
+
+
+<div class="viewcode-block" id="HTMLCalendar.formatmonthname">
+<a class="viewcode-back" href="../source/models.html#calendar.HTMLCalendar.formatmonthname">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">formatmonthname</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theyear</span><span class="p">,</span> <span class="n">themonth</span><span class="p">,</span> <span class="n">withyear</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a month name as a table row.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_validate_month</span><span class="p">(</span><span class="n">themonth</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">withyear</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">month_name</span><span class="p">[</span><span class="n">themonth</span><span class="p">],</span> <span class="n">theyear</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">month_name</span><span class="p">[</span><span class="n">themonth</span><span class="p">]</span>
+        <span class="k">return</span> <span class="s1">&#39;&lt;tr&gt;&lt;th colspan=&quot;7&quot; class=&quot;</span><span class="si">%s</span><span class="s1">&quot;&gt;</span><span class="si">%s</span><span class="s1">&lt;/th&gt;&lt;/tr&gt;&#39;</span> <span class="o">%</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cssclass_month_head</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="HTMLCalendar.formatmonth">
+<a class="viewcode-back" href="../source/models.html#calendar.HTMLCalendar.formatmonth">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">formatmonth</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theyear</span><span class="p">,</span> <span class="n">themonth</span><span class="p">,</span> <span class="n">withyear</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a formatted month as a table.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">append</span>
+        <span class="n">a</span><span class="p">(</span><span class="s1">&#39;&lt;table border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; class=&quot;</span><span class="si">%s</span><span class="s1">&quot;&gt;&#39;</span> <span class="o">%</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cssclass_month</span><span class="p">))</span>
+        <span class="n">a</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">a</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">formatmonthname</span><span class="p">(</span><span class="n">theyear</span><span class="p">,</span> <span class="n">themonth</span><span class="p">,</span> <span class="n">withyear</span><span class="o">=</span><span class="n">withyear</span><span class="p">))</span>
+        <span class="n">a</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">a</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">formatweekheader</span><span class="p">())</span>
+        <span class="n">a</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">week</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">monthdays2calendar</span><span class="p">(</span><span class="n">theyear</span><span class="p">,</span> <span class="n">themonth</span><span class="p">):</span>
+            <span class="n">a</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">formatweek</span><span class="p">(</span><span class="n">week</span><span class="p">))</span>
+            <span class="n">a</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">a</span><span class="p">(</span><span class="s1">&#39;&lt;/table&gt;&#39;</span><span class="p">)</span>
+        <span class="n">a</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">v</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="HTMLCalendar.formatyear">
+<a class="viewcode-back" href="../source/models.html#calendar.HTMLCalendar.formatyear">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">formatyear</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theyear</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a formatted year as a table of tables.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">append</span>
+        <span class="n">width</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">a</span><span class="p">(</span><span class="s1">&#39;&lt;table border=&quot;0&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; class=&quot;</span><span class="si">%s</span><span class="s1">&quot;&gt;&#39;</span> <span class="o">%</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">cssclass_year</span><span class="p">)</span>
+        <span class="n">a</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">a</span><span class="p">(</span><span class="s1">&#39;&lt;tr&gt;&lt;th colspan=&quot;</span><span class="si">%d</span><span class="s1">&quot; class=&quot;</span><span class="si">%s</span><span class="s1">&quot;&gt;</span><span class="si">%s</span><span class="s1">&lt;/th&gt;&lt;/tr&gt;&#39;</span> <span class="o">%</span> <span class="p">(</span>
+            <span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cssclass_year_head</span><span class="p">,</span> <span class="n">theyear</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">JANUARY</span><span class="p">,</span> <span class="n">JANUARY</span><span class="o">+</span><span class="mi">12</span><span class="p">,</span> <span class="n">width</span><span class="p">):</span>
+            <span class="c1"># months in this row</span>
+            <span class="n">months</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="n">width</span><span class="p">,</span> <span class="mi">13</span><span class="p">))</span>
+            <span class="n">a</span><span class="p">(</span><span class="s1">&#39;&lt;tr&gt;&#39;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">months</span><span class="p">:</span>
+                <span class="n">a</span><span class="p">(</span><span class="s1">&#39;&lt;td&gt;&#39;</span><span class="p">)</span>
+                <span class="n">a</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">formatmonth</span><span class="p">(</span><span class="n">theyear</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">withyear</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+                <span class="n">a</span><span class="p">(</span><span class="s1">&#39;&lt;/td&gt;&#39;</span><span class="p">)</span>
+            <span class="n">a</span><span class="p">(</span><span class="s1">&#39;&lt;/tr&gt;&#39;</span><span class="p">)</span>
+        <span class="n">a</span><span class="p">(</span><span class="s1">&#39;&lt;/table&gt;&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">v</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="HTMLCalendar.formatyearpage">
+<a class="viewcode-back" href="../source/models.html#calendar.HTMLCalendar.formatyearpage">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">formatyearpage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theyear</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">css</span><span class="o">=</span><span class="s1">&#39;calendar.css&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a formatted year as a complete HTML page.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">encoding</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">encoding</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">getdefaultencoding</span><span class="p">()</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">append</span>
+        <span class="n">a</span><span class="p">(</span><span class="s1">&#39;&lt;?xml version=&quot;1.0&quot; encoding=&quot;</span><span class="si">%s</span><span class="s1">&quot;?&gt;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">encoding</span><span class="p">)</span>
+        <span class="n">a</span><span class="p">(</span><span class="s1">&#39;&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Strict//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd&quot;&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">a</span><span class="p">(</span><span class="s1">&#39;&lt;html&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">a</span><span class="p">(</span><span class="s1">&#39;&lt;head&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">a</span><span class="p">(</span><span class="s1">&#39;&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=</span><span class="si">%s</span><span class="s1">&quot; /&gt;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">encoding</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">css</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">a</span><span class="p">(</span><span class="s1">&#39;&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;</span><span class="si">%s</span><span class="s1">&quot; /&gt;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">css</span><span class="p">)</span>
+        <span class="n">a</span><span class="p">(</span><span class="s1">&#39;&lt;title&gt;Calendar for </span><span class="si">%d</span><span class="s1">&lt;/title&gt;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">theyear</span><span class="p">)</span>
+        <span class="n">a</span><span class="p">(</span><span class="s1">&#39;&lt;/head&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">a</span><span class="p">(</span><span class="s1">&#39;&lt;body&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">a</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">formatyear</span><span class="p">(</span><span class="n">theyear</span><span class="p">,</span> <span class="n">width</span><span class="p">))</span>
+        <span class="n">a</span><span class="p">(</span><span class="s1">&#39;&lt;/body&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">a</span><span class="p">(</span><span class="s1">&#39;&lt;/html&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">encoding</span><span class="p">,</span> <span class="s2">&quot;xmlcharrefreplace&quot;</span><span class="p">)</span></div>
+</div>
+
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">different_locale</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">locale</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">locale</span> <span class="o">=</span> <span class="n">locale</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">oldlocale</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">oldlocale</span> <span class="o">=</span> <span class="n">_locale</span><span class="o">.</span><span class="n">setlocale</span><span class="p">(</span><span class="n">_locale</span><span class="o">.</span><span class="n">LC_TIME</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">_locale</span><span class="o">.</span><span class="n">setlocale</span><span class="p">(</span><span class="n">_locale</span><span class="o">.</span><span class="n">LC_TIME</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">locale</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="n">_locale</span><span class="o">.</span><span class="n">setlocale</span><span class="p">(</span><span class="n">_locale</span><span class="o">.</span><span class="n">LC_TIME</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">oldlocale</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_default_locale</span><span class="p">():</span>
+    <span class="n">locale</span> <span class="o">=</span> <span class="n">_locale</span><span class="o">.</span><span class="n">setlocale</span><span class="p">(</span><span class="n">_locale</span><span class="o">.</span><span class="n">LC_TIME</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">locale</span> <span class="o">==</span> <span class="s2">&quot;C&quot;</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">different_locale</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+            <span class="c1"># The LC_TIME locale does not seem to be configured:</span>
+            <span class="c1"># get the user preferred locale.</span>
+            <span class="n">locale</span> <span class="o">=</span> <span class="n">_locale</span><span class="o">.</span><span class="n">setlocale</span><span class="p">(</span><span class="n">_locale</span><span class="o">.</span><span class="n">LC_TIME</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">locale</span>
+
+
+<div class="viewcode-block" id="LocaleTextCalendar">
+<a class="viewcode-back" href="../source/models.html#calendar.LocaleTextCalendar">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">LocaleTextCalendar</span><span class="p">(</span><span class="n">TextCalendar</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class can be passed a locale name in the constructor and will return</span>
+<span class="sd">    month and weekday names in the specified locale.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="LocaleTextCalendar.__init__">
+<a class="viewcode-back" href="../source/models.html#calendar.LocaleTextCalendar.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">firstweekday</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">TextCalendar</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">firstweekday</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">locale</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">locale</span> <span class="o">=</span> <span class="n">_get_default_locale</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">locale</span> <span class="o">=</span> <span class="n">locale</span></div>
+
+
+<div class="viewcode-block" id="LocaleTextCalendar.formatweekday">
+<a class="viewcode-back" href="../source/models.html#calendar.LocaleTextCalendar.formatweekday">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">formatweekday</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">day</span><span class="p">,</span> <span class="n">width</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">different_locale</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">locale</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">formatweekday</span><span class="p">(</span><span class="n">day</span><span class="p">,</span> <span class="n">width</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="LocaleTextCalendar.formatmonthname">
+<a class="viewcode-back" href="../source/models.html#calendar.LocaleTextCalendar.formatmonthname">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">formatmonthname</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theyear</span><span class="p">,</span> <span class="n">themonth</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">withyear</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">different_locale</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">locale</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">formatmonthname</span><span class="p">(</span><span class="n">theyear</span><span class="p">,</span> <span class="n">themonth</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">withyear</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="LocaleHTMLCalendar">
+<a class="viewcode-back" href="../source/models.html#calendar.LocaleHTMLCalendar">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">LocaleHTMLCalendar</span><span class="p">(</span><span class="n">HTMLCalendar</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class can be passed a locale name in the constructor and will return</span>
+<span class="sd">    month and weekday names in the specified locale.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="LocaleHTMLCalendar.__init__">
+<a class="viewcode-back" href="../source/models.html#calendar.LocaleHTMLCalendar.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">firstweekday</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">HTMLCalendar</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">firstweekday</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">locale</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">locale</span> <span class="o">=</span> <span class="n">_get_default_locale</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">locale</span> <span class="o">=</span> <span class="n">locale</span></div>
+
+
+<div class="viewcode-block" id="LocaleHTMLCalendar.formatweekday">
+<a class="viewcode-back" href="../source/models.html#calendar.LocaleHTMLCalendar.formatweekday">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">formatweekday</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">day</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">different_locale</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">locale</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">formatweekday</span><span class="p">(</span><span class="n">day</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="LocaleHTMLCalendar.formatmonthname">
+<a class="viewcode-back" href="../source/models.html#calendar.LocaleHTMLCalendar.formatmonthname">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">formatmonthname</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theyear</span><span class="p">,</span> <span class="n">themonth</span><span class="p">,</span> <span class="n">withyear</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">different_locale</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">locale</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">formatmonthname</span><span class="p">(</span><span class="n">theyear</span><span class="p">,</span> <span class="n">themonth</span><span class="p">,</span> <span class="n">withyear</span><span class="p">)</span></div>
+</div>
+
+
+<span class="c1"># Support for old module level interface</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">TextCalendar</span><span class="p">()</span>
+
+<span class="n">firstweekday</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">getfirstweekday</span>
+
+<div class="viewcode-block" id="setfirstweekday">
+<a class="viewcode-back" href="../source/models.html#calendar.setfirstweekday">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">setfirstweekday</span><span class="p">(</span><span class="n">firstweekday</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">MONDAY</span> <span class="o">&lt;=</span> <span class="n">firstweekday</span> <span class="o">&lt;=</span> <span class="n">SUNDAY</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">IllegalWeekdayError</span><span class="p">(</span><span class="n">firstweekday</span><span class="p">)</span>
+    <span class="n">c</span><span class="o">.</span><span class="n">firstweekday</span> <span class="o">=</span> <span class="n">firstweekday</span></div>
+
+
+<span class="n">monthcalendar</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">monthdayscalendar</span>
+<span class="n">prweek</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">prweek</span>
+<span class="n">week</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">formatweek</span>
+<span class="n">weekheader</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">formatweekheader</span>
+<span class="n">prmonth</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">prmonth</span>
+<span class="n">month</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">formatmonth</span>
+<span class="n">calendar</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">formatyear</span>
+<span class="n">prcal</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">pryear</span>
+
+
+<span class="c1"># Spacing of month columns for multi-column year calendar</span>
+<span class="n">_colwidth</span> <span class="o">=</span> <span class="mi">7</span><span class="o">*</span><span class="mi">3</span> <span class="o">-</span> <span class="mi">1</span>         <span class="c1"># Amount printed by prweek()</span>
+<span class="n">_spacing</span> <span class="o">=</span> <span class="mi">6</span>                <span class="c1"># Number of spaces between columns</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">format</span><span class="p">(</span><span class="n">cols</span><span class="p">,</span> <span class="n">colwidth</span><span class="o">=</span><span class="n">_colwidth</span><span class="p">,</span> <span class="n">spacing</span><span class="o">=</span><span class="n">_spacing</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Prints multi-column formatting for year calendars&quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">formatstring</span><span class="p">(</span><span class="n">cols</span><span class="p">,</span> <span class="n">colwidth</span><span class="p">,</span> <span class="n">spacing</span><span class="p">))</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">formatstring</span><span class="p">(</span><span class="n">cols</span><span class="p">,</span> <span class="n">colwidth</span><span class="o">=</span><span class="n">_colwidth</span><span class="p">,</span> <span class="n">spacing</span><span class="o">=</span><span class="n">_spacing</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns a string formatted from n strings, centered within n columns.&quot;&quot;&quot;</span>
+    <span class="n">spacing</span> <span class="o">*=</span> <span class="s1">&#39; &#39;</span>
+    <span class="k">return</span> <span class="n">spacing</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">colwidth</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">)</span>
+
+
+<span class="n">EPOCH</span> <span class="o">=</span> <span class="mi">1970</span>
+<span class="n">_EPOCH_ORD</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="n">EPOCH</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">toordinal</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="timegm">
+<a class="viewcode-back" href="../source/models.html#calendar.timegm">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">timegm</span><span class="p">(</span><span class="nb">tuple</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Unrelated but handy function to calculate Unix timestamp from GMT.&quot;&quot;&quot;</span>
+    <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="p">,</span> <span class="n">hour</span><span class="p">,</span> <span class="n">minute</span><span class="p">,</span> <span class="n">second</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">[:</span><span class="mi">6</span><span class="p">]</span>
+    <span class="n">days</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">toordinal</span><span class="p">()</span> <span class="o">-</span> <span class="n">_EPOCH_ORD</span> <span class="o">+</span> <span class="n">day</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="n">hours</span> <span class="o">=</span> <span class="n">days</span><span class="o">*</span><span class="mi">24</span> <span class="o">+</span> <span class="n">hour</span>
+    <span class="n">minutes</span> <span class="o">=</span> <span class="n">hours</span><span class="o">*</span><span class="mi">60</span> <span class="o">+</span> <span class="n">minute</span>
+    <span class="n">seconds</span> <span class="o">=</span> <span class="n">minutes</span><span class="o">*</span><span class="mi">60</span> <span class="o">+</span> <span class="n">second</span>
+    <span class="k">return</span> <span class="n">seconds</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+    <span class="n">textgroup</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">add_argument_group</span><span class="p">(</span><span class="s1">&#39;text only arguments&#39;</span><span class="p">)</span>
+    <span class="n">htmlgroup</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">add_argument_group</span><span class="p">(</span><span class="s1">&#39;html only arguments&#39;</span><span class="p">)</span>
+    <span class="n">textgroup</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-w&quot;</span><span class="p">,</span> <span class="s2">&quot;--width&quot;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;width of date column (default 2)&quot;</span>
+    <span class="p">)</span>
+    <span class="n">textgroup</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-l&quot;</span><span class="p">,</span> <span class="s2">&quot;--lines&quot;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;number of lines for each week (default 1)&quot;</span>
+    <span class="p">)</span>
+    <span class="n">textgroup</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-s&quot;</span><span class="p">,</span> <span class="s2">&quot;--spacing&quot;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;spacing between months (default 6)&quot;</span>
+    <span class="p">)</span>
+    <span class="n">textgroup</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-m&quot;</span><span class="p">,</span> <span class="s2">&quot;--months&quot;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;months per row (default 3)&quot;</span>
+    <span class="p">)</span>
+    <span class="n">htmlgroup</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-c&quot;</span><span class="p">,</span> <span class="s2">&quot;--css&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;calendar.css&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;CSS to use for page&quot;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-L&quot;</span><span class="p">,</span> <span class="s2">&quot;--locale&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;locale to use for month and weekday names&quot;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-e&quot;</span><span class="p">,</span> <span class="s2">&quot;--encoding&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;encoding to use for output&quot;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-t&quot;</span><span class="p">,</span> <span class="s2">&quot;--type&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;text&quot;</span><span class="p">,</span>
+        <span class="n">choices</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="s2">&quot;html&quot;</span><span class="p">),</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;output type (text or html)&quot;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-f&quot;</span><span class="p">,</span> <span class="s2">&quot;--first-weekday&quot;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;weekday (0 is Monday, 6 is Sunday) to start each week (default 0)&quot;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;year&quot;</span><span class="p">,</span>
+        <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;?&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;year number&quot;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;month&quot;</span><span class="p">,</span>
+        <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;?&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;month number (1-12, text only)&quot;</span>
+    <span class="p">)</span>
+
+    <span class="n">options</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">locale</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">options</span><span class="o">.</span><span class="n">encoding</span><span class="p">:</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;if --locale is specified --encoding is required&quot;</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">locale</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">locale</span><span class="p">,</span> <span class="n">options</span><span class="o">.</span><span class="n">encoding</span>
+
+    <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;html&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">month</span><span class="p">:</span>
+            <span class="n">parser</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;incorrect number of arguments&quot;</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">locale</span><span class="p">:</span>
+            <span class="n">cal</span> <span class="o">=</span> <span class="n">LocaleHTMLCalendar</span><span class="p">(</span><span class="n">locale</span><span class="o">=</span><span class="n">locale</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cal</span> <span class="o">=</span> <span class="n">HTMLCalendar</span><span class="p">()</span>
+        <span class="n">cal</span><span class="o">.</span><span class="n">setfirstweekday</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">first_weekday</span><span class="p">)</span>
+        <span class="n">encoding</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">encoding</span>
+        <span class="k">if</span> <span class="n">encoding</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">encoding</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">getdefaultencoding</span><span class="p">()</span>
+        <span class="n">optdict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">,</span> <span class="n">css</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">css</span><span class="p">)</span>
+        <span class="n">write</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">buffer</span><span class="o">.</span><span class="n">write</span>
+        <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">year</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">write</span><span class="p">(</span><span class="n">cal</span><span class="o">.</span><span class="n">formatyearpage</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="o">**</span><span class="n">optdict</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">write</span><span class="p">(</span><span class="n">cal</span><span class="o">.</span><span class="n">formatyearpage</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="o">**</span><span class="n">optdict</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">locale</span><span class="p">:</span>
+            <span class="n">cal</span> <span class="o">=</span> <span class="n">LocaleTextCalendar</span><span class="p">(</span><span class="n">locale</span><span class="o">=</span><span class="n">locale</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cal</span> <span class="o">=</span> <span class="n">TextCalendar</span><span class="p">()</span>
+        <span class="n">cal</span><span class="o">.</span><span class="n">setfirstweekday</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">first_weekday</span><span class="p">)</span>
+        <span class="n">optdict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">w</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">lines</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">month</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">optdict</span><span class="p">[</span><span class="s2">&quot;c&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">spacing</span>
+            <span class="n">optdict</span><span class="p">[</span><span class="s2">&quot;m&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">months</span>
+        <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">month</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">_validate_month</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">month</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">year</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">cal</span><span class="o">.</span><span class="n">formatyear</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="o">**</span><span class="n">optdict</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">options</span><span class="o">.</span><span class="n">month</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">cal</span><span class="o">.</span><span class="n">formatyear</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="o">**</span><span class="n">optdict</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">cal</span><span class="o">.</span><span class="n">formatmonth</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">options</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="o">**</span><span class="n">optdict</span><span class="p">)</span>
+        <span class="n">write</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span>
+        <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">encoding</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">encoding</span><span class="p">)</span>
+            <span class="n">write</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">buffer</span><span class="o">.</span><span class="n">write</span>
+        <span class="n">write</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Droits d'auteur 2025, Longin &amp; Cie.</p>
+  </div>
+
+  Compilé avec <a href="https://www.sphinx-doc.org/">Sphinx</a> en utilisant un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">thème</a>
+    fourni par <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,7 @@
+Installation de l'application
+=============================
+Documentation de l'installation.
+
+.. automodule:: calender.templates.calendar.html
+   :members:
+   :undoc-members: False

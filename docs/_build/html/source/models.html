@@ -1,0 +1,525 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="fr" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modèles Django &mdash; Documentation gestionAssiduite getionAssiduite</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=996479af"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/translations.js?v=e6b791cb"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Recherche" href="../search.html" />
+    <link rel="prev" title="Vues Django" href="views.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            gestionAssiduite
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Rechercher docs" aria-label="Rechercher docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation de l’application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="views.html">Vues Django</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Modèles Django</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#core.models.Event"><code class="docutils literal notranslate"><span class="pre">Event</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Event.STATUS_CHOICES"><code class="docutils literal notranslate"><span class="pre">Event.STATUS_CHOICES</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Event.title"><code class="docutils literal notranslate"><span class="pre">Event.title</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Event.description"><code class="docutils literal notranslate"><span class="pre">Event.description</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Event.location"><code class="docutils literal notranslate"><span class="pre">Event.location</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Event.start_datetime"><code class="docutils literal notranslate"><span class="pre">Event.start_datetime</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Event.end_datetime"><code class="docutils literal notranslate"><span class="pre">Event.end_datetime</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Event.max_participants"><code class="docutils literal notranslate"><span class="pre">Event.max_participants</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Event.organizer"><code class="docutils literal notranslate"><span class="pre">Event.organizer</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Event.status"><code class="docutils literal notranslate"><span class="pre">Event.status</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Event.created_at"><code class="docutils literal notranslate"><span class="pre">Event.created_at</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Event.updated_at"><code class="docutils literal notranslate"><span class="pre">Event.updated_at</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Event.is_past"><code class="docutils literal notranslate"><span class="pre">Event.is_past()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Event.is_ongoing"><code class="docutils literal notranslate"><span class="pre">Event.is_ongoing()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Event.is_upcoming"><code class="docutils literal notranslate"><span class="pre">Event.is_upcoming()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Event.duration"><code class="docutils literal notranslate"><span class="pre">Event.duration()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Event.is_available"><code class="docutils literal notranslate"><span class="pre">Event.is_available()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Event.current_participants_count"><code class="docutils literal notranslate"><span class="pre">Event.current_participants_count()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Event.save"><code class="docutils literal notranslate"><span class="pre">Event.save()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Event.DoesNotExist"><code class="docutils literal notranslate"><span class="pre">Event.DoesNotExist</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Event.MultipleObjectsReturned"><code class="docutils literal notranslate"><span class="pre">Event.MultipleObjectsReturned</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Event.NotUpdated"><code class="docutils literal notranslate"><span class="pre">Event.NotUpdated</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Event.get_next_by_created_at"><code class="docutils literal notranslate"><span class="pre">Event.get_next_by_created_at()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Event.get_next_by_end_datetime"><code class="docutils literal notranslate"><span class="pre">Event.get_next_by_end_datetime()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Event.get_next_by_start_datetime"><code class="docutils literal notranslate"><span class="pre">Event.get_next_by_start_datetime()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Event.get_next_by_updated_at"><code class="docutils literal notranslate"><span class="pre">Event.get_next_by_updated_at()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Event.get_previous_by_created_at"><code class="docutils literal notranslate"><span class="pre">Event.get_previous_by_created_at()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Event.get_previous_by_end_datetime"><code class="docutils literal notranslate"><span class="pre">Event.get_previous_by_end_datetime()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Event.get_previous_by_start_datetime"><code class="docutils literal notranslate"><span class="pre">Event.get_previous_by_start_datetime()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Event.get_previous_by_updated_at"><code class="docutils literal notranslate"><span class="pre">Event.get_previous_by_updated_at()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Event.get_status_display"><code class="docutils literal notranslate"><span class="pre">Event.get_status_display()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Event.id"><code class="docutils literal notranslate"><span class="pre">Event.id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Event.objects"><code class="docutils literal notranslate"><span class="pre">Event.objects</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Event.organizer_id"><code class="docutils literal notranslate"><span class="pre">Event.organizer_id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Event.participations"><code class="docutils literal notranslate"><span class="pre">Event.participations</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#core.models.Participation"><code class="docutils literal notranslate"><span class="pre">Participation</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Participation.STATUS_CHOICES"><code class="docutils literal notranslate"><span class="pre">Participation.STATUS_CHOICES</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Participation.event"><code class="docutils literal notranslate"><span class="pre">Participation.event</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Participation.participant"><code class="docutils literal notranslate"><span class="pre">Participation.participant</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Participation.status"><code class="docutils literal notranslate"><span class="pre">Participation.status</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Participation.comments"><code class="docutils literal notranslate"><span class="pre">Participation.comments</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Participation.created_at"><code class="docutils literal notranslate"><span class="pre">Participation.created_at</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Participation.updated_at"><code class="docutils literal notranslate"><span class="pre">Participation.updated_at</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Participation.DoesNotExist"><code class="docutils literal notranslate"><span class="pre">Participation.DoesNotExist</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Participation.MultipleObjectsReturned"><code class="docutils literal notranslate"><span class="pre">Participation.MultipleObjectsReturned</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Participation.NotUpdated"><code class="docutils literal notranslate"><span class="pre">Participation.NotUpdated</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Participation.event_id"><code class="docutils literal notranslate"><span class="pre">Participation.event_id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Participation.get_next_by_created_at"><code class="docutils literal notranslate"><span class="pre">Participation.get_next_by_created_at()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Participation.get_next_by_updated_at"><code class="docutils literal notranslate"><span class="pre">Participation.get_next_by_updated_at()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Participation.get_previous_by_created_at"><code class="docutils literal notranslate"><span class="pre">Participation.get_previous_by_created_at()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Participation.get_previous_by_updated_at"><code class="docutils literal notranslate"><span class="pre">Participation.get_previous_by_updated_at()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Participation.get_status_display"><code class="docutils literal notranslate"><span class="pre">Participation.get_status_display()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Participation.id"><code class="docutils literal notranslate"><span class="pre">Participation.id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Participation.objects"><code class="docutils literal notranslate"><span class="pre">Participation.objects</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core.models.Participation.participant_id"><code class="docutils literal notranslate"><span class="pre">Participation.participant_id</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">gestionAssiduite</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Modèles Django</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/source/models.rst.txt" rel="nofollow"> Afficher la source de la page</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="modeles-django">
+<h1>Modèles Django<a class="headerlink" href="#modeles-django" title="Lien vers cette rubrique"></a></h1>
+<p>Documentation des modèles Django.</p>
+<dl class="py class" id="module-core.models">
+<dt class="sig sig-object py" id="core.models.Event">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.models.</span></span><span class="sig-name descname"><span class="pre">Event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/core/models.html#Event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.models.Event" title="Lien vers cette définition"></a></dt>
+<dd><p>Modèle pour les événements du calendrier</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Event.STATUS_CHOICES">
+<span class="sig-name descname"><span class="pre">STATUS_CHOICES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[('draft',</span> <span class="pre">'Brouillon'),</span> <span class="pre">('published',</span> <span class="pre">'Publié'),</span> <span class="pre">('cancelled',</span> <span class="pre">'Annulé'),</span> <span class="pre">('completed',</span> <span class="pre">'Terminé')]</span></em><a class="headerlink" href="#core.models.Event.STATUS_CHOICES" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Event.title">
+<span class="sig-name descname"><span class="pre">title</span></span><a class="headerlink" href="#core.models.Event.title" title="Lien vers cette définition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Event.description">
+<span class="sig-name descname"><span class="pre">description</span></span><a class="headerlink" href="#core.models.Event.description" title="Lien vers cette définition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Event.location">
+<span class="sig-name descname"><span class="pre">location</span></span><a class="headerlink" href="#core.models.Event.location" title="Lien vers cette définition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Event.start_datetime">
+<span class="sig-name descname"><span class="pre">start_datetime</span></span><a class="headerlink" href="#core.models.Event.start_datetime" title="Lien vers cette définition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Event.end_datetime">
+<span class="sig-name descname"><span class="pre">end_datetime</span></span><a class="headerlink" href="#core.models.Event.end_datetime" title="Lien vers cette définition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Event.max_participants">
+<span class="sig-name descname"><span class="pre">max_participants</span></span><a class="headerlink" href="#core.models.Event.max_participants" title="Lien vers cette définition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Event.organizer">
+<span class="sig-name descname"><span class="pre">organizer</span></span><a class="headerlink" href="#core.models.Event.organizer" title="Lien vers cette définition"></a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Child.parent</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Event.status">
+<span class="sig-name descname"><span class="pre">status</span></span><a class="headerlink" href="#core.models.Event.status" title="Lien vers cette définition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Event.created_at">
+<span class="sig-name descname"><span class="pre">created_at</span></span><a class="headerlink" href="#core.models.Event.created_at" title="Lien vers cette définition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Event.updated_at">
+<span class="sig-name descname"><span class="pre">updated_at</span></span><a class="headerlink" href="#core.models.Event.updated_at" title="Lien vers cette définition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.Event.is_past">
+<span class="sig-name descname"><span class="pre">is_past</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/core/models.html#Event.is_past"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.models.Event.is_past" title="Lien vers cette définition"></a></dt>
+<dd><p>Vérifie si l’événement est passé</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.Event.is_ongoing">
+<span class="sig-name descname"><span class="pre">is_ongoing</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/core/models.html#Event.is_ongoing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.models.Event.is_ongoing" title="Lien vers cette définition"></a></dt>
+<dd><p>Vérifie si l’événement est en cours</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.Event.is_upcoming">
+<span class="sig-name descname"><span class="pre">is_upcoming</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/core/models.html#Event.is_upcoming"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.models.Event.is_upcoming" title="Lien vers cette définition"></a></dt>
+<dd><p>Vérifie si l’événement est à venir</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.Event.duration">
+<span class="sig-name descname"><span class="pre">duration</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/core/models.html#Event.duration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.models.Event.duration" title="Lien vers cette définition"></a></dt>
+<dd><p>Calcule la durée de l’événement</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.Event.is_available">
+<span class="sig-name descname"><span class="pre">is_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/core/models.html#Event.is_available"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.models.Event.is_available" title="Lien vers cette définition"></a></dt>
+<dd><p>Vérifie si l’événement accepte encore des inscriptions</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.Event.current_participants_count">
+<span class="sig-name descname"><span class="pre">current_participants_count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/core/models.html#Event.current_participants_count"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.models.Event.current_participants_count" title="Lien vers cette définition"></a></dt>
+<dd><p>Compte le nombre de participants acceptés</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.Event.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/core/models.html#Event.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.models.Event.save" title="Lien vers cette définition"></a></dt>
+<dd><p>Save the current instance. Override this in a subclass if you want to
+control the saving process.</p>
+<p>The “force_insert” and “force_update” parameters can be used to insist
+that the « save » must be an SQL insert or update (or equivalent for
+non-SQL backends), respectively. Normally, they should not be set.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="core.models.Event.DoesNotExist">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#core.models.Event.DoesNotExist" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="core.models.Event.MultipleObjectsReturned">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#core.models.Event.MultipleObjectsReturned" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="core.models.Event.NotUpdated">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">NotUpdated</span></span><a class="headerlink" href="#core.models.Event.NotUpdated" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.Event.get_next_by_created_at">
+<span class="sig-name descname"><span class="pre">get_next_by_created_at</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.DateTimeField:</span> <span class="pre">created_at&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_next=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.Event.get_next_by_created_at" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.Event.get_next_by_end_datetime">
+<span class="sig-name descname"><span class="pre">get_next_by_end_datetime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.DateTimeField:</span> <span class="pre">end_datetime&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_next=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.Event.get_next_by_end_datetime" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.Event.get_next_by_start_datetime">
+<span class="sig-name descname"><span class="pre">get_next_by_start_datetime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.DateTimeField:</span> <span class="pre">start_datetime&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_next=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.Event.get_next_by_start_datetime" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.Event.get_next_by_updated_at">
+<span class="sig-name descname"><span class="pre">get_next_by_updated_at</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.DateTimeField:</span> <span class="pre">updated_at&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_next=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.Event.get_next_by_updated_at" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.Event.get_previous_by_created_at">
+<span class="sig-name descname"><span class="pre">get_previous_by_created_at</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.DateTimeField:</span> <span class="pre">created_at&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_next=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.Event.get_previous_by_created_at" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.Event.get_previous_by_end_datetime">
+<span class="sig-name descname"><span class="pre">get_previous_by_end_datetime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.DateTimeField:</span> <span class="pre">end_datetime&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_next=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.Event.get_previous_by_end_datetime" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.Event.get_previous_by_start_datetime">
+<span class="sig-name descname"><span class="pre">get_previous_by_start_datetime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.DateTimeField:</span> <span class="pre">start_datetime&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_next=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.Event.get_previous_by_start_datetime" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.Event.get_previous_by_updated_at">
+<span class="sig-name descname"><span class="pre">get_previous_by_updated_at</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.DateTimeField:</span> <span class="pre">updated_at&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_next=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.Event.get_previous_by_updated_at" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.Event.get_status_display">
+<span class="sig-name descname"><span class="pre">get_status_display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.CharField:</span> <span class="pre">status&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.Event.get_status_display" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Event.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#core.models.Event.id" title="Lien vers cette définition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Event.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#core.models.Event.objects" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Event.organizer_id">
+<span class="sig-name descname"><span class="pre">organizer_id</span></span><a class="headerlink" href="#core.models.Event.organizer_id" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Event.participations">
+<span class="sig-name descname"><span class="pre">participations</span></span><a class="headerlink" href="#core.models.Event.participations" title="Lien vers cette définition"></a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Parent.children</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_reverse_many_to_one_manager()</span></code> defined below.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="core.models.Participation">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">core.models.</span></span><span class="sig-name descname"><span class="pre">Participation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/core/models.html#Participation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.models.Participation" title="Lien vers cette définition"></a></dt>
+<dd><p>Modèle pour les participations aux événements</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Participation.STATUS_CHOICES">
+<span class="sig-name descname"><span class="pre">STATUS_CHOICES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[('pending',</span> <span class="pre">'En</span> <span class="pre">attente'),</span> <span class="pre">('accepted',</span> <span class="pre">'Accepté'),</span> <span class="pre">('rejected',</span> <span class="pre">'Rejeté'),</span> <span class="pre">('cancelled',</span> <span class="pre">'Annulé')]</span></em><a class="headerlink" href="#core.models.Participation.STATUS_CHOICES" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Participation.event">
+<span class="sig-name descname"><span class="pre">event</span></span><a class="headerlink" href="#core.models.Participation.event" title="Lien vers cette définition"></a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Child.parent</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Participation.participant">
+<span class="sig-name descname"><span class="pre">participant</span></span><a class="headerlink" href="#core.models.Participation.participant" title="Lien vers cette définition"></a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Child.parent</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Participation.status">
+<span class="sig-name descname"><span class="pre">status</span></span><a class="headerlink" href="#core.models.Participation.status" title="Lien vers cette définition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Participation.comments">
+<span class="sig-name descname"><span class="pre">comments</span></span><a class="headerlink" href="#core.models.Participation.comments" title="Lien vers cette définition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Participation.created_at">
+<span class="sig-name descname"><span class="pre">created_at</span></span><a class="headerlink" href="#core.models.Participation.created_at" title="Lien vers cette définition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Participation.updated_at">
+<span class="sig-name descname"><span class="pre">updated_at</span></span><a class="headerlink" href="#core.models.Participation.updated_at" title="Lien vers cette définition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="core.models.Participation.DoesNotExist">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#core.models.Participation.DoesNotExist" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="core.models.Participation.MultipleObjectsReturned">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#core.models.Participation.MultipleObjectsReturned" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="core.models.Participation.NotUpdated">
+<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">NotUpdated</span></span><a class="headerlink" href="#core.models.Participation.NotUpdated" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Participation.event_id">
+<span class="sig-name descname"><span class="pre">event_id</span></span><a class="headerlink" href="#core.models.Participation.event_id" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.Participation.get_next_by_created_at">
+<span class="sig-name descname"><span class="pre">get_next_by_created_at</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.DateTimeField:</span> <span class="pre">created_at&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_next=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.Participation.get_next_by_created_at" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.Participation.get_next_by_updated_at">
+<span class="sig-name descname"><span class="pre">get_next_by_updated_at</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.DateTimeField:</span> <span class="pre">updated_at&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_next=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.Participation.get_next_by_updated_at" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.Participation.get_previous_by_created_at">
+<span class="sig-name descname"><span class="pre">get_previous_by_created_at</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.DateTimeField:</span> <span class="pre">created_at&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_next=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.Participation.get_previous_by_created_at" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.Participation.get_previous_by_updated_at">
+<span class="sig-name descname"><span class="pre">get_previous_by_updated_at</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.DateTimeField:</span> <span class="pre">updated_at&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_next=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.Participation.get_previous_by_updated_at" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="core.models.Participation.get_status_display">
+<span class="sig-name descname"><span class="pre">get_status_display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.CharField:</span> <span class="pre">status&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#core.models.Participation.get_status_display" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Participation.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#core.models.Participation.id" title="Lien vers cette définition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Participation.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#core.models.Participation.objects" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="core.models.Participation.participant_id">
+<span class="sig-name descname"><span class="pre">participant_id</span></span><a class="headerlink" href="#core.models.Participation.participant_id" title="Lien vers cette définition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pied de page">
+        <a href="views.html" class="btn btn-neutral float-left" title="Vues Django" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Précédent</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Droits d'auteur 2025, Longin &amp; Cie.</p>
+  </div>
+
+  Compilé avec <a href="https://www.sphinx-doc.org/">Sphinx</a> en utilisant un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">thème</a>
+    fourni par <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
