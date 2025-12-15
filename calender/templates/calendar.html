@@ -1,0 +1,273 @@
+{% extends 'base.html' %}
+
+{% block title %}Calendrier{% endblock %}
+
+{% block content %}
+<div class="mb-8">
+    <!-- Header avec titre et bouton -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between mb-6">
+        <div>
+            <h1 class="text-3xl font-bold text-gray-900">
+                <i class="fas fa-calendar-alt mr-2"></i>Calendrier des Événements
+            </h1>
+            <p class="text-gray-600 mt-1">Visualisez et gérez tous vos événements</p>
+        </div>
+        
+        <div class="mt-4 md:mt-0 flex space-x-3">
+            <button onclick="calendar.changeView('dayGridMonth')" 
+                    class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                <i class="fas fa-calendar mr-1"></i> Mois
+            </button>
+            <button onclick="calendar.changeView('timeGridWeek')" 
+                    class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition">
+                <i class="fas fa-calendar-week mr-1"></i> Semaine
+            </button>
+            <button onclick="calendar.changeView('timeGridDay')" 
+                    class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition">
+                <i class="fas fa-calendar-day mr-1"></i> Jour
+            </button>
+            
+            {% if user.is_authenticated %}
+            <a href="{% url 'event_create' %}" 
+               class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition flex items-center">
+                <i class="fas fa-plus-circle mr-2"></i>
+                Nouvel Événement
+            </a>
+            {% endif %}
+        </div>
+    </div>
+    
+    <!-- Filtres rapides -->
+    <div class="bg-white rounded-lg shadow p-4 mb-6">
+        <div class="flex flex-wrap gap-4 items-center">
+            <span class="text-gray-700 font-medium">Filtrer :</span>
+            
+            <button onclick="filterEvents('all')" 
+                    class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm hover:bg-blue-200 transition">
+                Tous les événements
+            </button>
+            
+            {% if user.is_authenticated %}
+            <button onclick="filterEvents('mine')" 
+                    class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm hover:bg-purple-200 transition">
+                Mes événements
+            </button>
+            
+            <button onclick="filterEvents('participating')" 
+                    class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm hover:bg-green-200 transition">
+                Mes participations
+            </button>
+            {% endif %}
+            
+            <button onclick="filterEvents('upcoming')" 
+                    class="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-sm hover:bg-yellow-200 transition">
+                À venir
+            </button>
+        </div>
+    </div>
+    
+    <!-- Le calendrier FullCalendar -->
+    <div class="bg-white rounded-lg shadow-lg p-4">
+        <div id="calendar" class="min-h-[600px]"></div>
+    </div>
+</div>
+
+<!-- Légende -->
+<div class="mt-8 bg-white rounded-lg shadow p-4">
+    <h3 class="font-bold text-gray-800 mb-3">Légende</h3>
+    <div class="flex flex-wrap gap-4">
+        <div class="flex items-center">
+            <div class="w-4 h-4 bg-blue-500 rounded mr-2"></div>
+            <span class="text-sm text-gray-600">Événements publics</span>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="flex items-center">
+            <div class="w-4 h-4 bg-green-500 rounded mr-2"></div>
+            <span class="text-sm text-gray-600">Mes événements</span>
+        </div>
+        <div class="flex items-center">
+            <div class="w-4 h-4 bg-purple-500 rounded mr-2"></div>
+            <span class="text-sm text-gray-600">Où je participe</span>
+        </div>
+        {% endif %}
+        <div class="flex items-center">
+            <div class="w-4 h-4 bg-gray-400 rounded mr-2"></div>
+            <span class="text-sm text-gray-600">Événement passé</span>
+        </div>
+    </div>
+</div>
+
+<!-- Liste des événements à venir (mobile friendly) -->
+<div class="mt-8 md:hidden">
+    <h2 class="text-2xl font-bold text-gray-900 mb-4">Événements à venir</h2>
+    <div id="upcoming-events" class="space-y-4">
+        <!-- Les événements seront chargés par JavaScript -->
+        <div class="text-center py-8 text-gray-500">
+            <i class="fas fa-spinner fa-spin text-2xl mb-2"></i>
+            <p>Chargement des événements...</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Variable globale pour le calendrier
+let calendar;
+
+document.addEventListener('DOMContentLoaded', function() {
+    const calendarEl = document.getElementById('calendar');
+    
+    // Initialiser FullCalendar
+    calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        locale: 'fr',
+        firstDay: 1, // Lundi
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+        buttonText: {
+            today: 'Aujourd\'hui',
+            month: 'Mois',
+            week: 'Semaine',
+            day: 'Jour'
+        },
+        events: '/core/events/json/',
+        eventClick: function(info) {
+            info.jsEvent.preventDefault();
+            if (info.event.url) {
+                window.location.href = info.event.url;
+            }
+        },
+        eventDidMount: function(info) {
+            // Ajouter des tooltips
+            info.el.title = `${info.event.title}\n${info.event.extendedProps.location || 'Pas de lieu'}\n${formatTime(info.event.start)} - ${formatTime(info.event.end)}`;
+        },
+        eventTimeFormat: {
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false
+        },
+        height: 'auto',
+        navLinks: true,
+        navLinkDayClick: function(date, jsEvent) {
+            calendar.changeView('timeGridDay', date);
+        },
+        dayMaxEvents: 3,
+        businessHours: {
+            daysOfWeek: [1, 2, 3, 4, 5], // Lundi à Vendredi
+            startTime: '08:00',
+            endTime: '20:00',
+        },
+        nowIndicator: true,
+        scrollTime: '08:00',
+    });
+    
+    calendar.render();
+    
+    // Charger les événements à venir pour la vue mobile
+    loadUpcomingEvents();
+});
+
+// Fonction pour formater l'heure
+function formatTime(date) {
+    if (!date) return '';
+    return date.toLocaleTimeString('fr-FR', { 
+        hour: '2-digit', 
+        minute: '2-digit' 
+    });
+}
+
+// Fonction pour filtrer les événements
+function filterEvents(filterType) {
+    const calendarApi = calendar;
+    
+    // Réinitialiser tous les événements
+    calendarApi.removeAllEvents();
+    
+    // Recharger avec le filtre
+    calendarApi.refetchEvents({
+        url: '/core/events/json/',
+        extraParams: {
+            filter: filterType
+        }
+    });
+    
+    // Mettre à jour les boutons de filtre
+    document.querySelectorAll('[onclick^="filterEvents"]').forEach(btn => {
+        btn.classList.remove('bg-blue-600', 'text-white');
+        btn.classList.add('bg-gray-200', 'text-gray-700');
+    });
+    
+    const activeBtn = document.querySelector(`[onclick="filterEvents('${filterType}')"]`);
+    if (activeBtn) {
+        activeBtn.classList.remove('bg-gray-200', 'text-gray-700');
+        activeBtn.classList.add('bg-blue-600', 'text-white');
+    }
+}
+
+// Charger les événements à venir pour la vue mobile
+function loadUpcomingEvents() {
+    fetch('/core/events/json/?upcoming=true')
+        .then(response => response.json())
+        .then(events => {
+            const container = document.getElementById('upcoming-events');
+            if (events.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-8 text-gray-500">
+                        <i class="fas fa-calendar-times text-2xl mb-2"></i>
+                        <p>Aucun événement à venir</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = events.map(event => `
+                <div class="bg-white rounded-lg shadow p-4 event-card">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h4 class="font-bold text-gray-900">${event.title}</h4>
+                            <p class="text-sm text-gray-600 mt-1">
+                                <i class="far fa-clock mr-1"></i>
+                                ${formatDate(event.start)} - ${formatTime(new Date(event.start))}
+                            </p>
+                            ${event.location ? `
+                            <p class="text-sm text-gray-600 mt-1">
+                                <i class="fas fa-map-marker-alt mr-1"></i>
+                                ${event.location}
+                            </p>
+                            ` : ''}
+                        </div>
+                        <a href="${event.url}" 
+                           class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                            Voir <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            `).join('');
+        })
+        .catch(error => {
+            console.error('Error loading upcoming events:', error);
+        });
+}
+
+// Formater la date pour l'affichage
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('fr-FR', {
+        weekday: 'short',
+        day: 'numeric',
+        month: 'short'
+    });
+}
+
+// Actualiser le calendrier toutes les minutes (pour l'indicateur "now")
+setInterval(() => {
+    if (calendar) {
+        calendar.updateSize();
+    }
+}, 60000);
+</script>
+{% endblock %}

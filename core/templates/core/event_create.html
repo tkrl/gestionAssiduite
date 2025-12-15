@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+
+{% block title %}Créer un événement{% endblock %}
+
+{% block content %}
+<div class="flex justify-center items-center min-h-screen py-12">
+    <div class="w-full max-w-2xl px-4">
+        <div class="bg-white rounded-lg shadow-md border p-8">
+            <h1 class="text-3xl font-bold text-gray-900 mb-6 text-center">
+                <i class="fas fa-plus-circle mr-2"></i>Créer un nouvel événement
+            </h1>
+            
+            <form action="" method="post" class="space-y-6">
+                {% csrf_token %}
+                
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="p-4 rounded-md {% if message.tags == 'error' %}bg-red-100 text-red-700{% else %}bg-blue-100 text-blue-700{% endif %}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                
+                <!-- Titre -->
+                <div class="flex flex-col md:flex-row md:items-center gap-3">
+                    <label for="title" class="md:w-1/3 font-medium text-gray-700">Titre *</label>
+                    <input type="text" 
+                           name="title" 
+                           id="title" 
+                           required
+                           maxlength="200"
+                           class="flex-1 rounded-md border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                           placeholder="Ex: Réunion d'équipe">
+                </div>
+                
+                <!-- Description -->
+                <div class="flex flex-col gap-3">
+                    <label for="description" class="font-medium text-gray-700">Description</label>
+                    <textarea name="description" 
+                              id="description" 
+                              rows="4"
+                              class="rounded-md border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                              placeholder="Décrivez votre événement..."></textarea>
+                </div>
+                
+                <!-- Lieu -->
+                <div class="flex flex-col md:flex-row md:items-center gap-3">
+                    <label for="location" class="md:w-1/3 font-medium text-gray-700">Lieu</label>
+                    <input type="text" 
+                           name="location" 
+                           id="location" 
+                           maxlength="200"
+                           class="flex-1 rounded-md border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                           placeholder="Ex: Salle de conférence A">
+                </div>
+                
+                <!-- Date et heure de début -->
+                <div class="flex flex-col md:flex-row md:items-center gap-3">
+                    <label for="start_datetime" class="md:w-1/3 font-medium text-gray-700">Date et heure de début *</label>
+                    <input type="datetime-local" 
+                           name="start_datetime" 
+                           id="start_datetime" 
+                           required
+                           class="flex-1 rounded-md border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                
+                <!-- Date et heure de fin -->
+                <div class="flex flex-col md:flex-row md:items-center gap-3">
+                    <label for="end_datetime" class="md:w-1/3 font-medium text-gray-700">Date et heure de fin *</label>
+                    <input type="datetime-local" 
+                           name="end_datetime" 
+                           id="end_datetime" 
+                           required
+                           class="flex-1 rounded-md border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                
+                <!-- Nombre maximum de participants -->
+                <div class="flex flex-col md:flex-row md:items-center gap-3">
+                    <label for="max_participants" class="md:w-1/3 font-medium text-gray-700">Nombre max de participants *</label>
+                    <input type="number" 
+                           name="max_participants" 
+                           id="max_participants" 
+                           required
+                           min="1"
+                           value="20"
+                           class="flex-1 rounded-md border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                
+                <!-- Statut -->
+                <div class="flex flex-col md:flex-row md:items-center gap-3">
+                    <label for="status" class="md:w-1/3 font-medium text-gray-700">Statut</label>
+                    <select name="status" 
+                            id="status"
+                            class="flex-1 rounded-md border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="published" selected>Publié</option>
+                        <option value="draft">Brouillon</option>
+                    </select>
+                </div>
+                
+                <!-- Boutons -->
+                <div class="flex justify-end gap-4 pt-4">
+                    <a href="{% url 'calendar' %}" 
+                       class="px-6 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition">
+                        Annuler
+                    </a>
+                    <button type="submit" 
+                            class="px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition">
+                        <i class="fas fa-check mr-2"></i>Créer l'événement
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+// Validation côté client pour s'assurer que la date de fin est après la date de début
+document.addEventListener('DOMContentLoaded', function() {
+    const startInput = document.getElementById('start_datetime');
+    const endInput = document.getElementById('end_datetime');
+    
+    function validateDates() {
+        if (startInput.value && endInput.value) {
+            const start = new Date(startInput.value);
+            const end = new Date(endInput.value);
+            
+            if (end <= start) {
+                endInput.setCustomValidity('La date de fin doit être après la date de début');
+            } else {
+                endInput.setCustomValidity('');
+            }
+        }
+    }
+    
+    startInput.addEventListener('change', validateDates);
+    endInput.addEventListener('change', validateDates);
+});
+</script>
+{% endblock %}
+

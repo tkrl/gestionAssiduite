@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="flex justify-center items-center ">
+    <form action="" method="post" class="mt-36 flex flex-col items-center justify-center gap-6 rounded-md shadow-md w-80  md:w-96 h-96 border">
+        {% csrf_token %}
+        <div class="text-2xl">Connexion</div>
+        <div class="flex gap-x-3 flex-col md:flex-row md:items-center justify-end w-3/4 ">
+            <label for="" class="">Username</label>
+            <input name="username" class="rounded-md w-" type="text">
+        </div>
+
+        <div class="flex gap-x-3  flex-col md:flex-row md:items-center justify-end w-3/4">
+            <label for="">Password</label>
+            <input name="password" class="rounded-md" type="password">
+        </div>
+        <button class="btn shadow-md px-16 bg-black text-white ">Valider</button>
+    </form>
+</div>
+{% endblock %}

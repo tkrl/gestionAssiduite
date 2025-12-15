@@ -1,0 +1,158 @@
+    <!DOCTYPE html>
+    <html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}Calendrier d'Assiduité{% endblock %}</title>
+        
+        <!-- Tailwind CSS via CDN (pour développement) -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        
+        <!-- FullCalendar CSS -->
+        <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css' rel='stylesheet' />
+        
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        
+        <!-- Custom styles -->
+        <style>
+            .fc-event {
+                cursor: pointer;
+                border-radius: 4px;
+            }
+            .fc-event:hover {
+                opacity: 0.9;
+                transform: translateY(-1px);
+                transition: all 0.2s;
+            }
+            .event-card {
+                transition: all 0.3s ease;
+            }
+            .event-card:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            }
+        </style>
+            {% load tailwind_tags %}
+            {% tailwind_css %}
+        {% block extra_css %}{% endblock %}
+    </head>
+    <body class="bg-gray-50">
+        <!-- Navigation -->
+        <nav class="bg-blue-600 text-white shadow-lg">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between h-16">
+                    <div class="flex items-center">
+                        <a href="{% url 'home' %}" class="flex items-center space-x-2">
+                            <i class="fas fa-calendar-check text-xl"></i>
+                            <span class="font-bold text-lg">Calendrier d'Assiduité</span>
+                        </a>
+                        
+                        <div class="hidden md:flex ml-10 space-x-4">
+                            <a href="{% url 'calendar' %}" 
+                               class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-500 transition">
+                                <i class="fas fa-calendar-alt mr-1"></i> Calendrier
+                            </a>
+                            
+                            {% if user.is_authenticated %}
+                            <a href="{% url 'event_create' %}" 
+                               class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-500 transition">
+                                <i class="fas fa-plus-circle mr-1"></i> Créer événement
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center">
+                        {% if user.is_authenticated %}
+                        <div class="relative group">
+                            <button class="flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-blue-500 transition">
+                                <i class="fas fa-user-circle"></i>
+                                <span>{{ user.get_full_name|default:user.username }}</span>
+                                <i class="fas fa-chevron-down text-xs"></i>
+                            </button>
+                            
+                            <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 hidden group-hover:block z-10 border">
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    <i class="fas fa-user mr-2"></i> Mon profil
+                                </a>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    <i class="fas fa-calendar mr-2"></i> Mes événements
+                                </a>
+                                <div class="border-t my-1"></div>
+                                <a href="{% url 'logout_user' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    <i class="fas fa-sign-out-alt mr-2"></i> Déconnexion
+                                </a>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="flex space-x-2">
+                            <a href="{% url 'login' %}" 
+                               class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-500 transition">
+                                <i class="fas fa-sign-in-alt mr-1"></i> Connexion
+                            </a>
+                            <a href="{% url 'singup' %}" 
+                               class="px-3 py-2 rounded-md text-sm font-medium bg-white text-blue-600 hover:bg-gray-100 transition">
+                                <i class="fas fa-user-plus mr-1"></i> Inscription
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Messages -->
+        {% if messages %}
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+            {% for message in messages %}
+            <div class="rounded-md p-4 mb-3 {% if message.tags == 'success' %}bg-green-50 text-green-800 border border-green-200{% elif message.tags == 'error' %}bg-red-50 text-red-800 border border-red-200{% elif message.tags == 'warning' %}bg-yellow-50 text-yellow-800 border border-yellow-200{% else %}bg-blue-50 text-blue-800 border border-blue-200{% endif %}">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        {% if message.tags == 'success' %}
+                        <i class="fas fa-check-circle text-green-400"></i>
+                        {% elif message.tags == 'error' %}
+                        <i class="fas fa-exclamation-circle text-red-400"></i>
+                        {% elif message.tags == 'warning' %}
+                        <i class="fas fa-exclamation-triangle text-yellow-400"></i>
+                        {% else %}
+                        <i class="fas fa-info-circle text-blue-400"></i>
+                        {% endif %}
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm font-medium">{{ message }}</p>
+                    </div>
+                    <div class="ml-auto pl-3">
+                        <button type="button" onclick="this.parentElement.parentElement.parentElement.remove()" 
+                                class="inline-flex rounded-md focus:outline-none">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        
+        <!-- Main Content -->
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            {% block content %}{% endblock %}
+        </main>
+        
+        <!-- Footer -->
+        <footer class="bg-white border-t mt-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <p class="text-center text-gray-500 text-sm">
+                    &copy; {% now "Y" %} Calendrier d'Assiduité
+                </p>
+            </div>
+        </footer>
+        
+        <!-- Scripts -->
+        <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js'></script>
+        <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales/fr.js'></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+        
+        {% block extra_js %}{% endblock %}
+    </body>
+    </html>
