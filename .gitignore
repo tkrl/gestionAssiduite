@@ -14,7 +14,6 @@ pythonenv*
 # Database
 *.sqlite3
 *.db
-*.sql
 *.mdb
 
 # Environment variables
