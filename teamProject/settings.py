@@ -80,11 +80,13 @@ WSGI_APPLICATION = 'teamProject.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
-os.environ.setdefault("PGDATABASE", "liftoff_dev")
+os.environ.setdefault("PGDATABASE", "gestion")
 os.environ.setdefault("PGUSER", "postgres")
 os.environ.setdefault("PGPASSWORD", "postgres")
 os.environ.setdefault("PGHOST", "localhost")
 os.environ.setdefault("PGPORT", "5432")
+
+
 DATABASES = {
     # Pour utiliser PostgreSQL, décommentez et renseignez vos paramètres :
     'default': {

@@ -20,6 +20,7 @@ from calender.views import index
 from users.views import SignUp
 from users.views import Logout_user
 from users.views import Login_user
+from users.views import profile_view
 
 
 urlpatterns = [
@@ -28,5 +29,6 @@ urlpatterns = [
     path('singup', SignUp, name='singup'),
     path('logout', Logout_user, name='logout_user'),
     path('login', Login_user, name='login'),
-    path('core/', include('core.urls'))
+    path('core/', include('core.urls')),
+    path('profil', profile_view, name='profil'),
 ]
