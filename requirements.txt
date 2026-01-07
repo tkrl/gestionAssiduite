@@ -21,3 +21,4 @@ django-crispy-forms>=2.0
 crispy-tailwind>=0.5.0
 qrcode>=7.4.0
 python-decouple>=3.8
+django-tailwind==3.6.0
