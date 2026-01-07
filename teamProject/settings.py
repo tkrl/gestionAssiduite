@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 import os
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,9 +24,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-o@yx_7x=^8!qa-rp4p225dsv-(u-4)aoltlux)-tkcsv%mng#u'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = []
+if not DEBUG:
+    ALLOWED_HOSTS = ['*', '.railway.app']
+else:
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
@@ -86,18 +91,23 @@ os.environ.setdefault("PGPASSWORD", "postgres")
 os.environ.setdefault("PGHOST", "localhost")
 os.environ.setdefault("PGPORT", "5432")
 
-
 DATABASES = {
-    # Pour utiliser PostgreSQL, décommentez et renseignez vos paramètres :
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get("PGDATABASE"),
-        'USER': os.environ.get("PGUSER"),
-        'PASSWORD': os.environ.get("PGPASSWORD"),
-        'HOST': os.environ.get("PGHOST"),
-        'PORT': os.environ.get("PGPORT"),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# Database configuration for Railway
+DATABASE_URL = os.environ.get('DATABASE_URL')
+if DATABASE_URL:
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=DATABASE_URL,
+            conn_max_age=600,
+            ssl_require=True
+        )
+    }
 
 
 # Password validation
@@ -117,6 +127,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+AUTH_USER_MODEL = 'users.Accounts'
 
 
 # Internationalization
@@ -149,3 +160,23 @@ AUTH_USER_MODEL = "users.Accounts"
 # Authentication settings
 LOGIN_URL = '/login'
 LOGIN_REDIRECT_URL = '/'
+
+# === CONFIGURATION FOR RAILWAY ===
+import os
+
+# Database configuration for Railway
+DATABASE_URL = os.environ.get('DATABASE_URL')
+if DATABASE_URL:
+    try:
+        import dj_database_url
+        DATABASES['default'] = dj_database_url.config(
+            default=DATABASE_URL,
+            conn_max_age=600,
+            ssl_require=True
+        )
+        # Security for production
+        SECURE_SSL_REDIRECT = True
+        SESSION_COOKIE_SECURE = True
+        CSRF_COOKIE_SECURE = True
+    except ImportError:
+        pass  # dj-database-url not installed locally
