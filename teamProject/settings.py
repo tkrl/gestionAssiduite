@@ -176,3 +176,14 @@ if DATABASE_URL:
         CSRF_COOKIE_SECURE = True
     except ImportError:
         pass  # dj-database-url not installed locally
+
+    CSRF_TRUSTED_ORIGINS = [
+    'https://web-production-98d34.up.railway.app',
+    'https://*.railway.app',
+    'http://localhost:8000',
+    'http://127.0.0.1:8000',
+]
+
+# Si tu utilises aussi :
+CORS_ALLOWED_ORIGINS = CSRF_TRUSTED_ORIGINS
+CORS_ALLOW_ALL_ORIGINS = True  # Pour développement seulement
